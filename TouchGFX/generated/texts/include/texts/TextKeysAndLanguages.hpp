@@ -12,6 +12,8 @@ enum LANGUAGES
 
 enum TEXTS
 {
+    T_X_VALUE,
+    T_TOADOX,
     NUMBER_OF_TEXT_KEYS
 };
 

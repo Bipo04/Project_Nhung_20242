@@ -40,10 +40,10 @@ CPP_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Application/Startup \
+Application/User \
 Application/User/TouchGFX/App \
 Application/User/TouchGFX/target \
 Application/User/TouchGFX/target/generated \
-Application/User \
 Application/User/generated \
 Application/User/gui \
 Drivers/BSP/Components \

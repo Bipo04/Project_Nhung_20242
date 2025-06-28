@@ -335,6 +335,26 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen1_screen/Screen1View.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/Screen2Presenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen2_screen/Screen2Presenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/Screen2View.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen2_screen/Screen2View.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/Screen3Presenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen3_screen/Screen3Presenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/Screen3View.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen3_screen/Screen3View.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/ApplicationFontProvider.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp</locationURI>
@@ -430,6 +450,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screen1_screen/Screen1ViewBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/Screen2ViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/Screen3ViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screen3_screen/Screen3ViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/BitmapDatabase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/BitmapDatabase.cpp</locationURI>
@@ -440,6 +470,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/SVGDatabase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_batdau.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_batdau.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_blue-bright.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue-bright.cpp</locationURI>
@@ -448,6 +483,11 @@
 			<name>Application/User/generated/image_blue.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_game-control.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_game-control.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_green.cpp</name>
@@ -468,6 +508,16 @@
 			<name>Application/User/generated/image_red.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_red.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_sensor.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_sensor.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_start.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_start.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_yellow.cpp</name>

@@ -69,9 +69,9 @@ const touchgfx::BitmapId Screen1View::TETROMINO_IMAGES[TETRIS_SHAPES] = {
 };
 
 Screen1View::Screen1View() : 
-    currentX(20),
+    currentX(80),
     currentY(10),
-    currentShape(3),
+    currentShape(0),
     tickCount(0)
 {
     // Khởi tạo board trống
@@ -82,28 +82,6 @@ Screen1View::Screen1View() :
     
     // Vẽ khối đang di chuyển
     drawTetromino(currentShape, currentX, currentY);
-    
-    // Tạo 4 khối O cố định ở dưới để test xóa hàng
-    int bottomY = 310 - BLOCK_SIZE - 15; // Vị trí y của hàng dưới cùng
-    for(int i = 0; i < 4; i++) {
-        int xPos = 50 + (i * BLOCK_SIZE * 2); // Mỗi hình O chiếm 2 ô
-        
-        // Vẽ hình O (2x2)
-        for(int y = 0; y < 2; y++) {
-            for(int x = 0; x < 2; x++) {
-                int boardX = (xPos - 20) / BLOCK_SIZE + x;
-                int boardY = (bottomY - 10) / BLOCK_SIZE + y;
-                
-                board[boardY][boardX] = true;
-                staticBlocks[boardY][boardX].setXY(
-                    xPos + (x * BLOCK_SIZE),
-                    bottomY + (y * BLOCK_SIZE)
-                );
-                staticBlocks[boardY][boardX].setBitmap(Bitmap(TETROMINO_IMAGES[3])); // O shape
-                add(staticBlocks[boardY][boardX]);
-            }
-        }
-    }
 }
 
 void Screen1View::setupScreen()
@@ -165,12 +143,11 @@ bool Screen1View::checkCollision(int newX, int newY, int shape)
 
 void Screen1View::checkAndClearLines()
 {
-    int linesCleared = 0;
-    bool needUpdate = false;
+    int fullLines[BOARD_HEIGHT] = {0};  // Track which lines are full
+    int numFullLines = 0;
     
-    // Đầu tiên, đánh dấu tất cả các hàng đầy
-    bool fullLines[BOARD_HEIGHT] = {false};
-    for(int y = BOARD_HEIGHT-1; y >= 0; y--) {
+    // First identify all full lines from bottom up
+    for(int y = BOARD_HEIGHT - 1; y >= 0; y--) {
         bool isLineFull = true;
         for(int x = 0; x < BOARD_WIDTH; x++) {
             if(!board[y][x]) {
@@ -179,53 +156,45 @@ void Screen1View::checkAndClearLines()
             }
         }
         if(isLineFull) {
-            fullLines[y] = true;
-            linesCleared++;
+            fullLines[numFullLines++] = y;
         }
     }
 
-    // Nếu có hàng cần xóa
-    if(linesCleared > 0) {
-        // Xử lý từng hàng từ dưới lên
-        int writeY = BOARD_HEIGHT - 1;  // Vị trí đích để di chuyển các khối
-        
-        // Duyệt từ dưới lên để di chuyển các hàng
-        for(int readY = BOARD_HEIGHT - 1; readY >= 0; readY--) {
-            // Nếu là hàng đầy thì bỏ qua
-            if(fullLines[readY]) {
-                // Xóa các khối trong hàng đầy
-                for(int x = 0; x < BOARD_WIDTH; x++) {
-                    remove(staticBlocks[readY][x]);
-                }
-                continue;
+    // If we found full lines
+    if(numFullLines > 0) {
+        // First remove all full lines
+        for(int i = 0; i < numFullLines; i++) {
+            int lineY = fullLines[i];
+            for(int x = 0; x < BOARD_WIDTH; x++) {
+                remove(staticBlocks[lineY][x]);
+                board[lineY][x] = false;
+            }
+        }
+
+        // Then move remaining blocks down
+        for(int y = fullLines[0]; y >= 0; y--) {
+            // Calculate how many lines this row should move down
+            int shiftDown = 0;
+            for(int i = 0; i < numFullLines; i++) {
+                if(fullLines[i] > y) shiftDown++;
             }
             
-            // Di chuyển hàng không đầy xuống vị trí writeY
-            if(writeY != readY) {
+            if(shiftDown > 0) {
                 for(int x = 0; x < BOARD_WIDTH; x++) {
-                    // Copy trạng thái
-                    board[writeY][x] = board[readY][x];
-                    
-                    if(board[writeY][x]) {
-                        // Di chuyển khối xuống vị trí mới
-                        staticBlocks[writeY][x] = staticBlocks[readY][x];
-                        staticBlocks[writeY][x].setPosition(
+                    if(board[y][x]) {
+                        // Move block down by shiftDown lines
+                        board[y + shiftDown][x] = true;
+                        board[y][x] = false;
+                        
+                        staticBlocks[y + shiftDown][x] = staticBlocks[y][x];
+                        staticBlocks[y + shiftDown][x].setXY(
                             20 + (x * BLOCK_SIZE),
-                            10 + (writeY * BLOCK_SIZE),
-                            BLOCK_SIZE,
-                            BLOCK_SIZE
+                            10 + ((y + shiftDown) * BLOCK_SIZE)
                         );
-                        add(staticBlocks[writeY][x]);
+                        add(staticBlocks[y + shiftDown][x]);
+                        remove(staticBlocks[y][x]);
                     }
                 }
-            }
-            writeY--;
-        }
-        
-        // Xóa các hàng trên cùng
-        for(int y = 0; y <= writeY; y++) {
-            for(int x = 0; x < BOARD_WIDTH; x++) {
-                board[y][x] = false;
             }
         }
         
@@ -288,7 +257,29 @@ void Screen1View::handleTickEvent()
         if (count > 0)
         {
             osMessageQueueGet(Queue1Handle, &res, NULL, osWaitForever);
-            if (res == 'P')
+            if (res == 'L' || res == 'R') 
+            {
+                // Di chuyển khối sang trái hoặc phải
+                int offset = (res == 'L') ? -BLOCK_SIZE : BLOCK_SIZE;
+                if (!checkCollision(currentX + offset, currentY, currentShape)) 
+                {
+                    currentX += offset;
+                    drawTetromino(currentShape, currentX, currentY);
+                }
+            } 
+            else if (res == 'D') 
+            {
+                // Di chuyển khối xuống đến khi gặp vật cản
+                while (!checkCollision(currentX, currentY + BLOCK_SIZE, currentShape)) 
+                {
+                    currentY += BLOCK_SIZE;
+                    drawTetromino(currentShape, currentX, currentY);
+                }
+                // Đóng băng khối ngay lập tức sau khi chạm đáy
+                freezeTetromino();
+                createNewTetromino();
+            }
+            else if (res == 'C')
             {
                 rotateTetromino(); // Xoay hình nếu nhận được lệnh
             }
@@ -315,7 +306,7 @@ void Screen1View::handleTickEvent()
 void Screen1View::createNewTetromino()
 {
     currentY = 10;
-    currentX = 20;
+    currentX = 80;
     currentShape = (currentShape + 1) % TETRIS_SHAPES;
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));

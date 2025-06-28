@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Components/ili9341/ili9341.h"
+#include "PAJ7620.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -88,12 +89,38 @@ const osThreadAttr_t GUI_Task_attributes = {
   .stack_size = 8192 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for myTask03 */
+osThreadId_t myTask03Handle;
+const osThreadAttr_t myTask03_attributes = {
+  .name = "myTask03",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for myTask04 */
+osThreadId_t myTask04Handle;
+const osThreadAttr_t myTask04_attributes = {
+  .name = "myTask04",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 uint8_t isRevD = 0; /* Applicable only for STM32F429I DISCOVERY REVD and above */
 osMessageQueueId_t Queue1Handle;
 const osMessageQueueAttr_t Queue1_Attributes = {
   .name = "Queue1"
 };
+
+osMessageQueueId_t Queue2Handle;
+const osMessageQueueAttr_t Queue2_Attributes = {
+  .name = "Queue2"
+};
+
+typedef enum {
+    MODE_TASK3 = 0,     // Chế độ chạy Task3
+    MODE_TASK4 = 1,     // Chế độ chạy Task4
+} SystemMode;
+
+static SystemMode currentMode = MODE_TASK3;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,6 +134,8 @@ static void MX_LTDC_Init(void);
 static void MX_DMA2D_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
+void StartTask03(void *argument);
+void StartTask04(void *argument);
 
 /* USER CODE BEGIN PFP */
 static void BSP_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command);
@@ -186,7 +215,12 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
-
+ if (PAJ7620_Init() != HAL_OK)
+ {
+	  while(1) {
+		  HAL_Delay(100);
+	  }
+ }
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -207,6 +241,7 @@ int main(void)
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   Queue1Handle = osMessageQueueNew(8, sizeof(uint8_t), &Queue1_Attributes);
+  Queue2Handle = osMessageQueueNew(8, sizeof(uint8_t), &Queue2_Attributes);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -215,6 +250,14 @@ int main(void)
 
   /* creation of GUI_Task */
   GUI_TaskHandle = osThreadNew(TouchGFX_Task, NULL, &GUI_Task_attributes);
+
+  /* creation of myTask03 */
+  myTask03Handle = osThreadNew(StartTask03, NULL, &myTask03_attributes);
+  osThreadSuspend(myTask03Handle);
+
+  /* creation of myTask04 */
+  myTask04Handle = osThreadNew(StartTask04, NULL, &myTask04_attributes);
+  osThreadSuspend(myTask04Handle);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -604,6 +647,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13|GPIO_PIN_14, GPIO_PIN_RESET);
+
   /*Configure GPIO pins : VSYNC_FREQ_Pin RENDER_TIME_Pin FRAME_RATE_Pin MCU_ACTIVE_Pin */
   GPIO_InitStruct.Pin = VSYNC_FREQ_Pin|RENDER_TIME_Pin|FRAME_RATE_Pin|MCU_ACTIVE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -625,12 +671,31 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : PB12 PB13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PD12 PD13 */
   GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PG2 PG3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PG13 PG14 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
   /* Configure GPIO pin : USER_BUTTON is A0 pin */
@@ -965,6 +1030,28 @@ void LCD_Delay(uint32_t Delay)
   HAL_Delay(Delay);
 }
 
+void updateTasksBasedOnMode(void) {
+  switch (currentMode) {
+    case MODE_TASK3:
+      if (osThreadGetState(myTask03Handle) == osThreadBlocked) {
+          osThreadResume(myTask03Handle);    // Khôi phục Task3 nếu đang tạm dừng
+      }
+      if (osThreadGetState(myTask04Handle) != osThreadBlocked) {
+          osThreadSuspend(myTask04Handle);   // Tạm dừng Task4 nếu đang chạy
+      }
+      break;
+        
+    case MODE_TASK4:
+      if (osThreadGetState(myTask04Handle) == osThreadBlocked) {
+          osThreadResume(myTask04Handle);    // Khôi phục Task4 nếu đang tạm dừng
+      }
+      if (osThreadGetState(myTask03Handle) != osThreadBlocked) {
+          osThreadSuspend(myTask03Handle);   // Tạm dừng Task3 nếu đang chạy
+      }
+      break;
+  }
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -980,18 +1067,108 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
     for(;;)
     {
-        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
-        {
-            uint32_t count = osMessageQueueGetCount(Queue1Handle);
-            if (count < 1)
-            {
-                uint8_t data = 'P';
-                osMessageQueuePut(Queue1Handle, &data, 0, 10);
-            }
-        }
-        osDelay(1);
+      uint32_t count = osMessageQueueGetCount(Queue2Handle);
+      if (count > 0) {
+        uint8_t mode;
+        osMessageQueueGet(Queue2Handle, &mode, NULL, 0);
+        if (mode == 0)
+          HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
+        if (mode == 1)
+          HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
+        currentMode = mode == 0 ? MODE_TASK3 : MODE_TASK4; // Cập nhật chế độ hiện tại dựa trên giá trị nhận được từ Queue2
+        updateTasksBasedOnMode(); // Cập nhật trạng thái của các task dựa trên chế độ hiện tại
+      }
+      osDelay(1);
     }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartTask03 */
+/**
+* @brief Function implementing the myTask03 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask03 */
+void StartTask03(void *argument)
+{
+  /* USER CODE BEGIN StartTask03 */
+  /* Infinite loop */
+  for(;;)
+  {
+    uint8_t msg = 'O';
+    if(HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_2) == GPIO_PIN_SET) {
+      msg = 'L';
+    }
+  
+    // Check PG3 - Right
+    if(HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_3) == GPIO_PIN_SET) {
+      msg = 'R';
+    }
+    
+    // Check PB12 - Down
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_SET) {
+      msg = 'D';
+    }
+    
+    // Check PB13 - Rotate
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_13) == GPIO_PIN_SET) {
+      msg = 'C';
+    }
+
+    uint32_t count = osMessageQueueGetCount(Queue1Handle);
+    if (count < 1)
+    {
+      if(msg == 'L' || msg == 'R' || msg == 'D' || msg == 'C') {
+        osMessageQueuePut(Queue1Handle, &msg, 0, 10);
+        osDelay(80);
+      }
+    }
+    osDelay(10);
+  }
+  /* USER CODE END StartTask03 */
+}
+
+/* USER CODE BEGIN Header_StartTask04 */
+/**
+* @brief Function implementing the myTask04 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask04 */
+void StartTask04(void *argument)
+{
+  /* USER CODE BEGIN StartTask04 */
+  /* Infinite loop */
+  for(;;)
+  {
+    PAJ7620_Gesture_t currentGesture = GES_NONE;
+    currentGesture = PAJ7620_ReadGesture();
+    uint8_t data = 'O';
+    if (currentGesture != GES_NONE) {
+      switch (currentGesture) {
+        case GES_RIGHT:        		data = 'R'; break;
+        case GES_LEFT:         		data = 'L'; break;
+        case GES_UP:           		data = 'U'; break;
+        case GES_DOWN:         		data = 'D'; break;
+        case GES_FORWARD:      		data = 'F'; break;
+        case GES_BACKWARD:     		data = 'B'; break;
+        case GES_CLOCKWISE:       	data = 'C'; break;
+        case GES_ANTICLOCKWISE:   	data = 'A'; break;
+        default:                  	data = 'O'; break;
+      }
+    }
+    if(data == 'R' || data == 'L' || data == 'D' || data == 'C') {
+      uint32_t count = osMessageQueueGetCount(Queue1Handle);
+      if (count < 1)
+      {
+        osMessageQueuePut(Queue1Handle, &data, 0, 10);
+        osDelay(80);
+      }
+    }
+    osDelay(10);
+  }
+  /* USER CODE END StartTask04 */
 }
 
 /**
