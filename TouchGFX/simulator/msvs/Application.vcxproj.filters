@@ -232,18 +232,6 @@
     <Filter Include="Source Files\generated\gui_generated\screen4_screen">
       <UniqueIdentifier>C901E5C6-8248-E5F2-AD9B-D4FD7A7BFC42</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\screenend_screen">
-      <UniqueIdentifier>2E8A2B29-5C00-2E9C-79CF-335B21A16427</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\gui\screenend_screen">
-      <UniqueIdentifier>C5345933-0254-9FCF-EA6D-CAA29731A742</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\screenend_screen">
-      <UniqueIdentifier>D37FA9DE-9952-AC64-4A00-4ECA4355B0BB</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\screenend_screen">
-      <UniqueIdentifier>1506B558-9D55-28F0-F86D-B0C3173931B6</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -320,15 +308,6 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\screen4_screen\Screen4ViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\screen4_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\screenend_screen\ScreenEndPresenter.cpp">
-      <Filter>Source Files\gui\screenend_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\screenend_screen\ScreenEndView.cpp">
-      <Filter>Source Files\gui\screenend_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\screenend_screen\ScreenEndViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\screenend_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -816,15 +795,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen4_screen\Screen4ViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\screen4_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\screenend_screen\ScreenEndPresenter.hpp">
-      <Filter>Header Files\gui\screenend_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\screenend_screen\ScreenEndView.hpp">
-      <Filter>Header Files\gui\screenend_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screenend_screen\ScreenEndViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\screenend_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

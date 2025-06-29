@@ -365,16 +365,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screen4_screen/Screen4View.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/gui/ScreenEndPresenter.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screenend_screen/ScreenEndPresenter.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/gui/ScreenEndView.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screenend_screen/ScreenEndView.cpp</locationURI>
-		</link>
-		<link>
 			<name>Application/User/gui/ScreenWaitPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/screenwait_screen/ScreenWaitPresenter.cpp</locationURI>
@@ -495,11 +485,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screen4_screen/Screen4ViewBase.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/ScreenEndViewBase.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screenend_screen/ScreenEndViewBase.cpp</locationURI>
-		</link>
-		<link>
 			<name>Application/User/generated/ScreenWaitViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/screenwait_screen/ScreenWaitViewBase.cpp</locationURI>
@@ -535,9 +520,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue-bright.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_blue-bright9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue-bright9px.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_blue.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_blue9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blue9px.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_choose_mode_ques.cpp</name>
@@ -555,9 +550,24 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_green.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_green9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_green9px.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_next_level.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_next_level.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_orange.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_orange.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_orange9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_orange9px.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_play_screen-min.cpp</name>
@@ -570,14 +580,34 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_purple.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_purple9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_purple9px.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_red.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_red.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_red9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_red9px.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_score.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_score.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_yellow.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_yellow.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_yellow9px.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_yellow9px.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/LanguageGb.cpp</name>

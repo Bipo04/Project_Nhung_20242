@@ -19,8 +19,6 @@
 #include <gui/screen3_screen/Screen3Presenter.hpp>
 #include <gui/screen4_screen/Screen4View.hpp>
 #include <gui/screen4_screen/Screen4Presenter.hpp>
-#include <gui/screenend_screen/ScreenEndView.hpp>
-#include <gui/screenend_screen/ScreenEndPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -91,4 +89,17 @@ void FrontendApplicationBase::gotoScreen3ScreenNoTransition()
 void FrontendApplicationBase::gotoScreen3ScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<Screen3View, Screen3Presenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// Screen4
+
+void FrontendApplicationBase::gotoScreen4ScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoScreen4ScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoScreen4ScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<Screen4View, Screen4Presenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

@@ -4,6 +4,7 @@
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
 #include <touchgfx/Color.hpp>
 #include <images/BitmapDatabase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
 Screen1ViewBase::Screen1ViewBase() :
     flexButtonCallback(this, &Screen1ViewBase::flexButtonCallbackHandler)
@@ -23,6 +24,44 @@ Screen1ViewBase::Screen1ViewBase() :
     flexButton1.setAction(flexButtonCallback);
     flexButton1.setPosition(184, 271, 42, 42);
     add(flexButton1);
+
+    textArea1.setPosition(119, 190, 172, 30);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea1.setLinespacing(0);
+    textArea1.setWildcard(touchgfx::TypedText(T___SINGLEUSE_HEP8).getText());
+    textArea1.setTypedText(touchgfx::TypedText(T_MAN1));
+    add(textArea1);
+
+    image2.setXY(0, 0);
+    image2.setBitmap(touchgfx::Bitmap(BITMAP_SCORE_ID));
+    image2.setVisible(false);
+    add(image2);
+
+    flexButton2.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton2.setBorderSize(5);
+    flexButton2.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton2.setAlpha(0);
+    flexButton2.setVisible(false);
+    flexButton2.setAction(flexButtonCallback);
+    flexButton2.setPosition(43, 127, 65, 31);
+    add(flexButton2);
+
+    flexButton3.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton3.setBorderSize(5);
+    flexButton3.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton3.setAlpha(0);
+    flexButton3.setVisible(false);
+    flexButton3.setAction(flexButtonCallback);
+    flexButton3.setPosition(133, 127, 65, 31);
+    add(flexButton3);
+
+    textArea2.setPosition(55, 99, 130, 20);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea2.setLinespacing(0);
+    textArea2.setWildcard(touchgfx::TypedText(T___SINGLEUSE_54RC).getText());
+    textArea2.setTypedText(touchgfx::TypedText(T_MAN1SCORE));
+    textArea2.setVisible(false);
+    add(textArea2);
 }
 
 Screen1ViewBase::~Screen1ViewBase()
@@ -43,5 +82,19 @@ void Screen1ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonCo
         //When flexButton1 clicked change screen to Screen2
         //Go to Screen2 with no screen transition
         application().gotoScreen2ScreenNoTransition();
+    }
+    if (&src == &flexButton2)
+    {
+        //Interaction2
+        //When flexButton2 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
+    if (&src == &flexButton3)
+    {
+        //Interaction3
+        //When flexButton3 clicked change screen to Screen1
+        //Go to Screen1 with no screen transition
+        application().gotoScreen1ScreenNoTransition();
     }
 }

@@ -69,6 +69,17 @@ const touchgfx::BitmapId Screen3View::TETROMINO_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT_ID   // Z shape
 };
 
+// Mảng bitmap cho khối tiếp theo (9PX - nhỏ hơn)
+const touchgfx::BitmapId Screen3View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
+    BITMAP_BLUE9PX_ID,         // I shape
+    BITMAP_RED9PX_ID,          // J shape  
+    BITMAP_ORANGE9PX_ID,       // L shape
+    BITMAP_YELLOW9PX_ID,       // O shape
+    BITMAP_GREEN9PX_ID,        // S shape
+    BITMAP_PURPLE9PX_ID,       // T shape
+    BITMAP_BLUE_BRIGHT9PX_ID   // Z shape
+};
+
 const int NUM_FIXED_BLOCKS = 7;
 const int BOTTOM_Y = 285;
 const int MIDDLE_Y = 200;
@@ -89,7 +100,10 @@ Screen3View::Screen3View() :
     currentX(80),
     currentY(10),
     currentShape(0),
-    tickCount(0)
+    nextShape(1),  // Khởi tạo shape tiếp theo
+    tickCount(0),
+    isGameOver(false),
+    isWin(false)
 {
     // Khởi tạo board trống
     memset(board, 0, sizeof(board));
@@ -99,6 +113,9 @@ Screen3View::Screen3View() :
     
     // Vẽ khối đang di chuyển
     drawTetromino(currentShape, currentX, currentY);
+
+    // Vẽ khối tiếp theo
+    drawNextTetromino();
 
     // Đặt các khối cố định vào board
     for(int i = 0; i < 7; i++) {
@@ -160,6 +177,50 @@ void Screen3View::drawTetromino(int shapeIndex, int startX, int startY)
                 );
                 blocks[y][x].setBitmap(Bitmap(TETROMINO_IMAGES[currentShape]));
                 add(blocks[y][x]);
+            }
+        }
+    }
+}
+
+void Screen3View::drawNextTetromino()
+{
+    const int NEXT_BLOCK_SIZE = 9; // Kích thước block nhỏ hơn (9px)
+    
+    // Tọa độ hiển thị khối tiếp theo tùy theo loại hình
+    int NEXT_START_X, NEXT_START_Y;
+    
+    switch(nextShape) {
+        case 0: // Hình I
+            NEXT_START_X = 187;
+            NEXT_START_Y = 127;
+            break;
+        case 3: // Hình O (vuông)
+            NEXT_START_X = 195;
+            NEXT_START_Y = 123;
+            break;
+        default: // Các hình còn lại (J, L, S, T, Z)
+            NEXT_START_X = 192;
+            NEXT_START_Y = 123;
+            break;
+    }
+    
+    // Xóa các block cũ
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(nextBlocks[y][x]);
+        }
+    }
+
+    // Vẽ khối tiếp theo với bitmap 9PX
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            if(TETROMINOS[nextShape][y][x] == 1) {
+                nextBlocks[y][x].setXY(
+                    NEXT_START_X + (x * NEXT_BLOCK_SIZE),
+                    NEXT_START_Y + (y * NEXT_BLOCK_SIZE)
+                );
+                nextBlocks[y][x].setBitmap(Bitmap(TETROMINO_NEXT_IMAGES[nextShape]));
+                add(nextBlocks[y][x]);
             }
         }
     }
@@ -261,6 +322,15 @@ void Screen3View::checkAndClearLines()
         
         invalidate();
     }
+    if (score >= 20) {
+        isWin = true;
+        clearScreen();
+        image3.setVisible(true);
+        flexButton1.setVisible(false);
+        flexButton4.setVisible(true);
+        flexButton5.setVisible(true);
+        invalidate();
+    }
 }
 
 void Screen3View::moveLinesDown(int clearedLine)
@@ -310,6 +380,9 @@ void Screen3View::freezeTetromino()
 
 void Screen3View::handleTickEvent()
 {
+    if (isGameOver || isWin) {
+        return;
+    }
     tickCount++;
     if (tickCount % 25 == 12) {
         uint8_t res = 0;
@@ -369,18 +442,29 @@ void Screen3View::handleTickEvent()
             currentY += BLOCK_SIZE;
             drawTetromino(currentShape, currentX, currentY);
         }
-        
-        invalidate();
     }
+    invalidate();
 }
 
 void Screen3View::createNewTetromino()
 {
+    if (isGameOver || isWin) {
+        return;
+    }
+
     currentY = 10;
     currentX = 80;
-    currentShape = (currentShape + 1) % TETRIS_SHAPES;
+    
+    // Sử dụng nextShape làm currentShape
+    currentShape = nextShape;
+    // Tạo nextShape mới (random hoặc theo thứ tự)
+    nextShape = (nextShape + 1) % TETRIS_SHAPES;
+    
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
+    
+    // Cập nhật hiển thị khối tiếp theo
+    drawNextTetromino();
     
     // Kiểm tra từng khối của hình muốn vẽ
     bool canCreate = true;
@@ -402,9 +486,21 @@ void Screen3View::createNewTetromino()
         }
     }
     if (!canCreate) {
-        // Game Over - có thể thêm xử lý game over ở đây
-        application().gotoScreen2ScreenNoTransition(); // Hàm này không tồn tại
-        // Tạm thời comment lại, có thể sử dụng gotoScreen1ScreenNoTransition() hoặc reset game
+        // Game Over
+        isGameOver = true;
+        clearScreen();
+        image2.setVisible(true);
+        flexButton1.setVisible(false);
+        flexButton2.setVisible(true);
+        flexButton3.setVisible(true);
+
+        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+
+        textArea2.setVisible(true);
+        textArea2.setWildcard(textArea1Buffer);
+        textArea2.setTypedText(touchgfx::TypedText(T_MAN3SCORE));
+        textArea2.invalidate(); // Vẽ lại nội dung
+        invalidate();
     }
     else {
         // Nếu có thể tạo hình mới, vẽ nó
@@ -478,5 +574,31 @@ void Screen3View::rotateTetromino()
         memcpy(currentTetromino, rotated, sizeof(currentTetromino));
         drawTetromino(currentShape, currentX, currentY);
         invalidate();
+    }
+}
+
+void Screen3View::clearScreen()
+{
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(blocks[y][x]);
+        }
+    }
+    
+    // Xóa tất cả khối cố định trên board
+    for(int y = 0; y < BOARD_HEIGHT; y++) {
+        for(int x = 0; x < BOARD_WIDTH; x++) {
+            if(board[y][x]) {
+                remove(staticBlocks[y][x]);
+                board[y][x] = false;
+            }
+        }
+    }
+    
+    // Xóa khối tiếp theo
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(nextBlocks[y][x]);
+        }
     }
 }

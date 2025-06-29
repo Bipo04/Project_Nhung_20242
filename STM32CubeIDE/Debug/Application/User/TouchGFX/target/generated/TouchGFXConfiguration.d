@@ -90,9 +90,6 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/screen4_screen/Screen4ViewBase.hpp \
  ../../TouchGFX/gui/include/gui/screen4_screen/Screen4Presenter.hpp \
- ../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndView.hpp \
- ../../TouchGFX/generated/gui_generated/include/gui_generated/screenend_screen/ScreenEndViewBase.hpp \
- ../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp \
  ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/VectorFontRendererImpl.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
@@ -227,9 +224,6 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/screen4_screen/Screen4ViewBase.hpp:
 ../../TouchGFX/gui/include/gui/screen4_screen/Screen4Presenter.hpp:
-../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndView.hpp:
-../../TouchGFX/generated/gui_generated/include/gui_generated/screenend_screen/ScreenEndViewBase.hpp:
-../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp:
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/VectorFontRendererImpl.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:

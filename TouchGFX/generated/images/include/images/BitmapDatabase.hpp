@@ -10,15 +10,24 @@ const uint16_t BITMAP_BLOCK_ID = 0;
 const uint16_t BITMAP_BLOCK__ID = 1;
 const uint16_t BITMAP_BLOCK___ID = 2;
 const uint16_t BITMAP_BLUE_ID = 3;
-const uint16_t BITMAP_BLUE_BRIGHT_ID = 4;
-const uint16_t BITMAP_CHOOSE_MODE_QUES_ID = 5;
-const uint16_t BITMAP_GEM_SCREEN_ID = 6;
-const uint16_t BITMAP_GREEN_ID = 7;
-const uint16_t BITMAP_ORANGE_ID = 8;
-const uint16_t BITMAP_PLAY_SCREEN_MIN_ID = 9;
-const uint16_t BITMAP_PURPLE_ID = 10;
-const uint16_t BITMAP_RED_ID = 11;
-const uint16_t BITMAP_YELLOW_ID = 12;
+const uint16_t BITMAP_BLUE9PX_ID = 4;
+const uint16_t BITMAP_BLUE_BRIGHT_ID = 5;
+const uint16_t BITMAP_BLUE_BRIGHT9PX_ID = 6;
+const uint16_t BITMAP_CHOOSE_MODE_QUES_ID = 7;
+const uint16_t BITMAP_GEM_SCREEN_ID = 8;
+const uint16_t BITMAP_GREEN_ID = 9;
+const uint16_t BITMAP_GREEN9PX_ID = 10;
+const uint16_t BITMAP_NEXT_LEVEL_ID = 11;
+const uint16_t BITMAP_ORANGE_ID = 12;
+const uint16_t BITMAP_ORANGE9PX_ID = 13;
+const uint16_t BITMAP_PLAY_SCREEN_MIN_ID = 14;
+const uint16_t BITMAP_PURPLE_ID = 15;
+const uint16_t BITMAP_PURPLE9PX_ID = 16;
+const uint16_t BITMAP_RED_ID = 17;
+const uint16_t BITMAP_RED9PX_ID = 18;
+const uint16_t BITMAP_SCORE_ID = 19;
+const uint16_t BITMAP_YELLOW_ID = 20;
+const uint16_t BITMAP_YELLOW9PX_ID = 21;
 
 namespace BitmapDatabase
 {

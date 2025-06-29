@@ -89,9 +89,6 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/screen4_screen/Screen4ViewBase.hpp \
  ../../TouchGFX/gui/include/gui/screen4_screen/Screen4Presenter.hpp \
- ../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndView.hpp \
- ../../TouchGFX/generated/gui_generated/include/gui_generated/screenend_screen/ScreenEndViewBase.hpp \
- ../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
@@ -242,9 +239,6 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/screen4_screen/Screen4ViewBase.hpp:
 ../../TouchGFX/gui/include/gui/screen4_screen/Screen4Presenter.hpp:
-../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndView.hpp:
-../../TouchGFX/generated/gui_generated/include/gui_generated/screenend_screen/ScreenEndViewBase.hpp:
-../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:

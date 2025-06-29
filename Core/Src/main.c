@@ -1124,7 +1124,7 @@ void StartTask03(void *argument)
     {
       if(msg == 'L' || msg == 'R' || msg == 'D' || msg == 'C') {
         osMessageQueuePut(Queue1Handle, &msg, 0, 10);
-        osDelay(300);
+        osDelay(400);
       }
     }
     osDelay(10);
@@ -1166,7 +1166,7 @@ void StartTask04(void *argument)
       if (count < 1)
       {
         osMessageQueuePut(Queue1Handle, &data, 0, 10);
-        osDelay(300);
+        osDelay(400);
       }
     }
     osDelay(10);

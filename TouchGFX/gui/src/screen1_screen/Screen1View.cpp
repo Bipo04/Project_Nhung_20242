@@ -2,6 +2,7 @@
 #include "cmsis_os2.h"
 #include <cstring>
 #include <touchgfx/Color.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
 extern osMessageQueueId_t Queue1Handle;
 
@@ -68,11 +69,24 @@ const touchgfx::BitmapId Screen1View::TETROMINO_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT_ID   // Z shape
 };
 
+// Mảng bitmap cho khối tiếp theo (9PX - nhỏ hơn)
+const touchgfx::BitmapId Screen1View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
+    BITMAP_BLUE9PX_ID,         // I shape
+    BITMAP_RED9PX_ID,          // J shape  
+    BITMAP_ORANGE9PX_ID,       // L shape
+    BITMAP_YELLOW9PX_ID,       // O shape
+    BITMAP_GREEN9PX_ID,        // S shape
+    BITMAP_PURPLE9PX_ID,       // T shape
+    BITMAP_BLUE_BRIGHT9PX_ID   // Z shape
+};
+
 Screen1View::Screen1View() : 
     currentX(80),
     currentY(10),
     currentShape(0),
-    tickCount(0)
+    nextShape(1),  // Khởi tạo shape tiếp theo
+    tickCount(0),
+    isGameOver(false)
 {
     // Khởi tạo board trống
     memset(board, 0, sizeof(board));
@@ -82,6 +96,16 @@ Screen1View::Screen1View() :
     
     // Vẽ khối đang di chuyển
     drawTetromino(currentShape, currentX, currentY);
+
+    // Vẽ khối tiếp theo
+    drawNextTetromino();
+
+    score = 0;
+    Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+
+    textArea1.setWildcard(textArea1Buffer);
+    textArea1.setTypedText(touchgfx::TypedText(T_MAN1));
+    textArea1.invalidate(); // Vẽ lại nội dung
 }
 
 void Screen1View::setupScreen()
@@ -114,6 +138,50 @@ void Screen1View::drawTetromino(int shapeIndex, int startX, int startY)
                 );
                 blocks[y][x].setBitmap(Bitmap(TETROMINO_IMAGES[currentShape]));
                 add(blocks[y][x]);
+            }
+        }
+    }
+}
+
+void Screen1View::drawNextTetromino()
+{
+    const int NEXT_BLOCK_SIZE = 9; // Kích thước block nhỏ hơn (9px)
+    
+    // Tọa độ hiển thị khối tiếp theo tùy theo loại hình
+    int NEXT_START_X, NEXT_START_Y;
+    
+    switch(nextShape) {
+        case 0: // Hình I
+            NEXT_START_X = 187;
+            NEXT_START_Y = 127;
+            break;
+        case 3: // Hình O (vuông)
+            NEXT_START_X = 195;
+            NEXT_START_Y = 123;
+            break;
+        default: // Các hình còn lại (J, L, S, T, Z)
+            NEXT_START_X = 192;
+            NEXT_START_Y = 123;
+            break;
+    }
+    
+    // Xóa các block cũ
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(nextBlocks[y][x]);
+        }
+    }
+
+    // Vẽ khối tiếp theo với bitmap 9PX
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            if(TETROMINOS[nextShape][y][x] == 1) {
+                nextBlocks[y][x].setXY(
+                    NEXT_START_X + (x * NEXT_BLOCK_SIZE),
+                    NEXT_START_Y + (y * NEXT_BLOCK_SIZE)
+                );
+                nextBlocks[y][x].setBitmap(Bitmap(TETROMINO_NEXT_IMAGES[nextShape]));
+                add(nextBlocks[y][x]);
             }
         }
     }
@@ -162,6 +230,20 @@ void Screen1View::checkAndClearLines()
 
     // If we found full lines
     if(numFullLines > 0) {
+        if (numFullLines == 1) {
+            score += 10; // 1 line cleared
+        } else if (numFullLines == 2) {
+            score += 30; // 2 lines cleared
+        } else if (numFullLines == 3) {
+            score += 50; // 3 lines cleared
+        } else if (numFullLines >= 4) {
+            score += 100; // 4 or more lines cleared
+        }
+        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+
+        textArea1.setWildcard(textArea1Buffer);
+        textArea1.setTypedText(touchgfx::TypedText(T_MAN1));
+        textArea1.invalidate(); // Vẽ lại nội dung
         // First remove all full lines
         for(int i = 0; i < numFullLines; i++) {
             int lineY = fullLines[i];
@@ -249,24 +331,36 @@ void Screen1View::freezeTetromino()
 
 void Screen1View::handleTickEvent()
 {
+    // Nếu game over thì không xử lý tick event nữa
+    if (isGameOver) {
+        return;
+    }
+    
     tickCount++;
-    if (tickCount % 50 == 0) 
-    {
+    if (tickCount % 25 == 12) {
         uint8_t res = 0;
         uint32_t count = osMessageQueueGetCount(Queue1Handle);
         if (count > 0)
         {
             osMessageQueueGet(Queue1Handle, &res, NULL, osWaitForever);
-            if (res == 'L' || res == 'R') 
+            if (res == 'L') 
             {
-                // Di chuyển khối sang trái hoặc phải
-                int offset = (res == 'L') ? -BLOCK_SIZE : BLOCK_SIZE;
-                if (!checkCollision(currentX + offset, currentY, currentShape)) 
+                // Di chuyển khối sang trái
+                if (!checkCollision(currentX - BLOCK_SIZE, currentY, currentShape)) 
                 {
-                    currentX += offset;
+                    currentX -= BLOCK_SIZE;
                     drawTetromino(currentShape, currentX, currentY);
                 }
             } 
+            else if (res == 'R') 
+            {
+                // Di chuyển khối sang phải
+                if (!checkCollision(currentX + BLOCK_SIZE, currentY, currentShape)) 
+                {
+                    currentX += BLOCK_SIZE;
+                    drawTetromino(currentShape, currentX, currentY);
+                }
+            }
             else if (res == 'D') 
             {
                 // Di chuyển khối xuống đến khi gặp vật cản
@@ -284,33 +378,87 @@ void Screen1View::handleTickEvent()
                 rotateTetromino(); // Xoay hình nếu nhận được lệnh
             }
         }
-//         Kiểm tra va chạm khi di chuyển xuống
-         if (checkCollision(currentX, currentY + BLOCK_SIZE, currentShape))
-         {
-             // Đóng băng khối hiện tại
-             freezeTetromino();
-             // Tạo khối mới
-             createNewTetromino();
-         }
-         else
-         {
-             // Di chuyển khối xuống
-             currentY += BLOCK_SIZE;
-             drawTetromino(currentShape, currentX, currentY);
-         }
-        
-        invalidate();
     }
+    if (tickCount % 50 == 0) 
+    {
+        // Kiểm tra va chạm khi di chuyển xuống
+        if (checkCollision(currentX, currentY + BLOCK_SIZE, currentShape))
+        {
+            // Đóng băng khối hiện tại
+            freezeTetromino();
+            // Tạo khối mới
+            createNewTetromino();
+        }
+        else
+        {
+            // Di chuyển khối xuống
+            currentY += BLOCK_SIZE;
+            drawTetromino(currentShape, currentX, currentY);
+        }
+    }
+    invalidate();
 }
 
 void Screen1View::createNewTetromino()
 {
+    if (isGameOver) {
+        return;
+    }
     currentY = 10;
     currentX = 80;
-    currentShape = (currentShape + 1) % TETRIS_SHAPES;
+    
+    // Sử dụng nextShape làm currentShape
+    currentShape = nextShape;
+    // Tạo nextShape mới (random hoặc theo thứ tự)
+    nextShape = (nextShape + 1) % TETRIS_SHAPES;
+    
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
-    drawTetromino(currentShape, currentX, currentY);
+    
+    // Cập nhật hiển thị khối tiếp theo
+    drawNextTetromino();
+    
+    // Kiểm tra từng khối của hình muốn vẽ
+    bool canCreate = true;
+    for(int y = 0; y < 4 && canCreate; y++) {
+        for(int x = 0; x < 4; x++) {
+            if(currentTetromino[y][x]) {  // Nếu ô này có khối
+                int boardX = (currentX - 20) / BLOCK_SIZE + x;
+                int boardY = (currentY - 10) / BLOCK_SIZE + y;
+                
+                // Kiểm tra xem vị trí này đã có khối chưa
+                if(boardX >= 0 && boardX < BOARD_WIDTH && 
+                   boardY >= 0 && boardY < BOARD_HEIGHT && 
+                   board[boardY][boardX]) {
+                    // Vị trí đã bị chiếm - Game Over
+                    canCreate = false;
+                    break;
+                }
+            }
+        }
+    }
+    if (!canCreate) {
+        // Game Over
+        isGameOver = true;
+        clearScreen();
+        image2.setVisible(true);
+        flexButton1.setVisible(false);
+        flexButton2.setVisible(true);
+        flexButton3.setVisible(true);
+
+        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+
+        textArea2.setVisible(true);
+        textArea2.setWildcard(textArea1Buffer);
+        textArea2.setTypedText(touchgfx::TypedText(T_MAN1SCORE));
+        textArea2.invalidate(); // Vẽ lại nội dung
+        
+        invalidate();
+    }
+    else {
+        // Nếu có thể tạo hình mới, vẽ nó
+        drawTetromino(currentShape, currentX, currentY);
+    }
 }
 
 void Screen1View::rotateTetromino()
@@ -379,5 +527,29 @@ void Screen1View::rotateTetromino()
         memcpy(currentTetromino, rotated, sizeof(currentTetromino));
         drawTetromino(currentShape, currentX, currentY);
         invalidate();
+    }
+}
+
+void Screen1View::clearScreen()
+{
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(blocks[y][x]);
+        }
+    }
+
+    for(int y = 0; y < BOARD_HEIGHT; y++) {
+        for(int x = 0; x < BOARD_WIDTH; x++) {
+            if(board[y][x]) {
+                remove(staticBlocks[y][x]);
+                board[y][x] = false;
+            }
+        }
+    }
+
+    for(int y = 0; y < 4; y++) {
+        for(int x = 0; x < 4; x++) {
+            remove(nextBlocks[y][x]);
+        }
     }
 }

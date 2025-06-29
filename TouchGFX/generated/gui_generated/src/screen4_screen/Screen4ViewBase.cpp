@@ -4,6 +4,7 @@
 #include <gui_generated/screen4_screen/Screen4ViewBase.hpp>
 #include <touchgfx/Color.hpp>
 #include <images/BitmapDatabase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
 Screen4ViewBase::Screen4ViewBase()
 {
@@ -21,6 +22,63 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton1.setAlpha(0);
     flexButton1.setPosition(185, 271, 41, 43);
     add(flexButton1);
+
+    textArea1.setPosition(119, 190, 172, 30);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea1.setLinespacing(0);
+    textArea1.setWildcard(touchgfx::TypedText(T___SINGLEUSE_9028).getText());
+    textArea1.setTypedText(touchgfx::TypedText(T_MAN4));
+    add(textArea1);
+
+    image2.setXY(0, 0);
+    image2.setBitmap(touchgfx::Bitmap(BITMAP_SCORE_ID));
+    image2.setVisible(false);
+    add(image2);
+
+    image3.setXY(0, 0);
+    image3.setBitmap(touchgfx::Bitmap(BITMAP_NEXT_LEVEL_ID));
+    image3.setVisible(false);
+    add(image3);
+
+    flexButton2.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton2.setBorderSize(5);
+    flexButton2.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton2.setAlpha(0);
+    flexButton2.setVisible(false);
+    flexButton2.setPosition(42, 127, 65, 31);
+    add(flexButton2);
+
+    flexButton3.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton3.setBorderSize(5);
+    flexButton3.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton3.setAlpha(0);
+    flexButton3.setVisible(false);
+    flexButton3.setPosition(133, 127, 65, 31);
+    add(flexButton3);
+
+    flexButton4.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton4.setBorderSize(5);
+    flexButton4.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton4.setAlpha(0);
+    flexButton4.setVisible(false);
+    flexButton4.setPosition(38, 121, 65, 31);
+    add(flexButton4);
+
+    flexButton5.setBoxWithBorderPosition(0, 0, 65, 31);
+    flexButton5.setBorderSize(5);
+    flexButton5.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton5.setAlpha(0);
+    flexButton5.setVisible(false);
+    flexButton5.setPosition(142, 121, 65, 31);
+    add(flexButton5);
+
+    textArea2.setPosition(55, 99, 130, 20);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea2.setLinespacing(0);
+    textArea2.setWildcard(touchgfx::TypedText(T___SINGLEUSE_4ZM8).getText());
+    textArea2.setTypedText(touchgfx::TypedText(T_MAN4SCORE));
+    textArea2.setVisible(false);
+    add(textArea2);
 }
 
 Screen4ViewBase::~Screen4ViewBase()

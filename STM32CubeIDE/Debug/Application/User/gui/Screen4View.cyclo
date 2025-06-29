@@ -1,8 +1,35 @@
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:147:23:virtual touchgfx::Drawable* touchgfx::Drawable::getFirstChild()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:315:18:virtual void touchgfx::Drawable::setX(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:327:18:virtual void touchgfx::Drawable::setY(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:356:18:virtual void touchgfx::Drawable::setWidth(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:368:18:virtual void touchgfx::Drawable::setHeight(int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:378:18:virtual void touchgfx::Drawable::childGeometryChanged()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:389:18:virtual void touchgfx::Drawable::handleClickEvent(const touchgfx::ClickEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:401:18:virtual void touchgfx::Drawable::handleGestureEvent(const touchgfx::GestureEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:490:18:virtual void touchgfx::Drawable::handleDragEvent(const touchgfx::DragEvent&)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:501:18:virtual void touchgfx::Drawable::handleTickEvent()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:588:18:virtual void touchgfx::Drawable::moveTo(int16_t, int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:703:18:virtual void touchgfx::Drawable::setupDrawChain(const touchgfx::Rect&, touchgfx::Drawable**)	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:13:6:virtual void Screen4View::tearDownScreen()	1
-../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:11:13:Screen4View::~Screen4View()	1
-../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:11:13:virtual Screen4View::~Screen4View()	1
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:3:1:Screen4View::Screen4View()	1
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:8:6:virtual void Screen4View::setupScreen()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:65:13:touchgfx::TypedText::~TypedText()	1
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:155:6:virtual void Screen4View::tearDownScreen()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	1
+../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:15:13:Screen4View::~Screen4View()	4
+../../TouchGFX/gui/include/gui/screen4_screen/Screen4View.hpp:15:13:virtual Screen4View::~Screen4View()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	2
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	3
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	1
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:229:6:bool Screen4View::checkCollision(int, int, int)	7
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:336:6:void Screen4View::moveLinesDown(int)	4
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:150:6:virtual void Screen4View::setupScreen()	1
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:161:6:void Screen4View::drawTetromino(int, int, int)	6
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:511:6:void Screen4View::rotateTetromino()	16
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:185:6:void Screen4View::drawNextTetromino()	7
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:99:1:Screen4View::Screen4View()	12
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:580:6:void Screen4View::clearScreen()	8
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:449:6:void Screen4View::createNewTetromino()	12
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:251:6:void Screen4View::checkAndClearLines()	17
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:360:6:void Screen4View::freezeTetromino()	4
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen4_screen/Screen4View.cpp:381:6:virtual void Screen4View::handleTickEvent()	15
