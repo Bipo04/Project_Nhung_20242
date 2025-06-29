@@ -32,7 +32,7 @@ git clone https://github.com/yourusername/STM32F429I-Tetris.git
 1. Mở project trong STM32CubeIDE: `STM32CubeIDE/`
 2. Build project: `Ctrl+B`
 3. Kết nối hardware:
-   - PAJ7620: SDA→PB7, SCL→PB6, VCC→3.3V, GND→GND
+   - PAJ7620: SDA→PC9, SCL→PA8, VCC→3.3V, GND→GND
    - Buttons: LEFT→PG2, RIGHT→PG3, DOWN→PB12, ROTATE→PB13
 4. Flash và chạy: `Run → STM32 Application`
 
