@@ -3,25 +3,32 @@
 /*********************************************************************************/
 #include <gui_generated/screen3_screen/Screen3ViewBase.hpp>
 #include <touchgfx/Color.hpp>
+#include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-Screen3ViewBase::Screen3ViewBase()
+Screen3ViewBase::Screen3ViewBase() :
+    flexButtonCallback(this, &Screen3ViewBase::flexButtonCallbackHandler)
 {
     __background.setPosition(0, 0, 240, 320);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
-    boxWithBorder1_3.setPosition(20, 10, 150, 300);
-    boxWithBorder1_3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    boxWithBorder1_3.setBorderColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    boxWithBorder1_3.setBorderSize(0);
-    add(boxWithBorder1_3);
+    flexButton1.setBoxWithBorderPosition(0, 0, 43, 45);
+    flexButton1.setBorderSize(5);
+    flexButton1.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton1.setAlpha(0);
+    flexButton1.setAction(flexButtonCallback);
+    flexButton1.setPosition(183, 269, 43, 45);
+    add(flexButton1);
 
-    textArea1.setXY(49, 24);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    image1.setXY(0, 0);
+    image1.setBitmap(touchgfx::Bitmap(BITMAP_PLAY_SCREEN_MIN_ID));
+    add(image1);
+
+    textArea1.setPosition(119, 190, 172, 30);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea1.setLinespacing(0);
     textArea1.setWildcard(touchgfx::TypedText(T_X_VALUE).getText());
-    textArea1.resizeToCurrentText();
     textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
     add(textArea1);
 }
@@ -34,4 +41,15 @@ Screen3ViewBase::~Screen3ViewBase()
 void Screen3ViewBase::setupScreen()
 {
 
+}
+
+void Screen3ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
+{
+    if (&src == &flexButton1)
+    {
+        //Interaction1
+        //When flexButton1 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
 }

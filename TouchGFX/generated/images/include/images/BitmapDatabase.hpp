@@ -6,17 +6,19 @@
 #include <touchgfx/hal/Types.hpp>
 #include <touchgfx/Bitmap.hpp>
 
-const uint16_t BITMAP_BATDAU_ID = 0;
-const uint16_t BITMAP_BLUE_ID = 1;
-const uint16_t BITMAP_BLUE_BRIGHT_ID = 2;
-const uint16_t BITMAP_GAME_CONTROL_ID = 3;
-const uint16_t BITMAP_GREEN_ID = 4;
-const uint16_t BITMAP_ORANGE_ID = 5;
-const uint16_t BITMAP_PURPLE_ID = 6;
-const uint16_t BITMAP_RED_ID = 7;
-const uint16_t BITMAP_SENSOR_ID = 8;
-const uint16_t BITMAP_START_ID = 9;
-const uint16_t BITMAP_YELLOW_ID = 10;
+const uint16_t BITMAP_BLOCK_ID = 0;
+const uint16_t BITMAP_BLOCK__ID = 1;
+const uint16_t BITMAP_BLOCK___ID = 2;
+const uint16_t BITMAP_BLUE_ID = 3;
+const uint16_t BITMAP_BLUE_BRIGHT_ID = 4;
+const uint16_t BITMAP_CHOOSE_MODE_QUES_ID = 5;
+const uint16_t BITMAP_GEM_SCREEN_ID = 6;
+const uint16_t BITMAP_GREEN_ID = 7;
+const uint16_t BITMAP_ORANGE_ID = 8;
+const uint16_t BITMAP_PLAY_SCREEN_MIN_ID = 9;
+const uint16_t BITMAP_PURPLE_ID = 10;
+const uint16_t BITMAP_RED_ID = 11;
+const uint16_t BITMAP_YELLOW_ID = 12;
 
 namespace BitmapDatabase
 {

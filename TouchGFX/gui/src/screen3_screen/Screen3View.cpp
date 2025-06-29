@@ -127,7 +127,6 @@ Screen3View::Screen3View() :
 
     textArea1.setWildcard(textArea1Buffer);
     textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
-    textArea1.resizeToCurrentText(); // nếu cần tự điều chỉnh box
     textArea1.invalidate(); // Vẽ lại nội dung};
 }
 
@@ -223,7 +222,6 @@ void Screen3View::checkAndClearLines()
 
         textArea1.setWildcard(textArea1Buffer);
         textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
-        textArea1.resizeToCurrentText(); // nếu cần tự điều chỉnh box
         textArea1.invalidate(); // Vẽ lại nội dung};
         // First remove all full lines
         for(int i = 0; i < numFullLines; i++) {
@@ -313,23 +311,30 @@ void Screen3View::freezeTetromino()
 void Screen3View::handleTickEvent()
 {
     tickCount++;
-    if (tickCount % 50 == 0) 
-    {
+    if (tickCount % 25 == 12) {
         uint8_t res = 0;
         uint32_t count = osMessageQueueGetCount(Queue1Handle);
         if (count > 0)
         {
             osMessageQueueGet(Queue1Handle, &res, NULL, osWaitForever);
-            if (res == 'L' || res == 'R') 
+            if (res == 'L') 
             {
-                // Di chuyển khối sang trái hoặc phải
-                int offset = (res == 'L') ? -BLOCK_SIZE : BLOCK_SIZE;
-                if (!checkCollision(currentX + offset, currentY, currentShape)) 
+                // Di chuyển khối sang trái
+                if (!checkCollision(currentX - BLOCK_SIZE, currentY, currentShape)) 
                 {
-                    currentX += offset;
+                    currentX -= BLOCK_SIZE;
                     drawTetromino(currentShape, currentX, currentY);
                 }
             } 
+            else if (res == 'R') 
+            {
+                // Di chuyển khối sang phải
+                if (!checkCollision(currentX + BLOCK_SIZE, currentY, currentShape)) 
+                {
+                    currentX += BLOCK_SIZE;
+                    drawTetromino(currentShape, currentX, currentY);
+                }
+            }
             else if (res == 'D') 
             {
                 // Di chuyển khối xuống đến khi gặp vật cản
@@ -347,7 +352,10 @@ void Screen3View::handleTickEvent()
                 rotateTetromino(); // Xoay hình nếu nhận được lệnh
             }
         }
-//         Kiểm tra va chạm khi di chuyển xuống
+    }
+    if (tickCount % 50 == 0) 
+    {
+        // Kiểm tra va chạm khi di chuyển xuống
         if (checkCollision(currentX, currentY + BLOCK_SIZE, currentShape))
         {
             // Đóng băng khối hiện tại
@@ -373,7 +381,35 @@ void Screen3View::createNewTetromino()
     currentShape = (currentShape + 1) % TETRIS_SHAPES;
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
-    drawTetromino(currentShape, currentX, currentY);
+    
+    // Kiểm tra từng khối của hình muốn vẽ
+    bool canCreate = true;
+    for(int y = 0; y < 4 && canCreate; y++) {
+        for(int x = 0; x < 4; x++) {
+            if(currentTetromino[y][x]) {  // Nếu ô này có khối
+                int boardX = (currentX - 20) / BLOCK_SIZE + x;
+                int boardY = (currentY - 10) / BLOCK_SIZE + y;
+                
+                // Kiểm tra xem vị trí này đã có khối chưa
+                if(boardX >= 0 && boardX < BOARD_WIDTH && 
+                   boardY >= 0 && boardY < BOARD_HEIGHT && 
+                   board[boardY][boardX]) {
+                    // Vị trí đã bị chiếm - Game Over
+                    canCreate = false;
+                    break;
+                }
+            }
+        }
+    }
+    if (!canCreate) {
+        // Game Over - có thể thêm xử lý game over ở đây
+        application().gotoScreen2ScreenNoTransition(); // Hàm này không tồn tại
+        // Tạm thời comment lại, có thể sử dụng gotoScreen1ScreenNoTransition() hoặc reset game
+    }
+    else {
+        // Nếu có thể tạo hình mới, vẽ nó
+        drawTetromino(currentShape, currentX, currentY);
+    }
 }
 
 void Screen3View::rotateTetromino()

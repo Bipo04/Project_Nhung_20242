@@ -208,6 +208,42 @@
     <Filter Include="Header Files\generated\gui_generated\screen3_screen">
       <UniqueIdentifier>B55201E7-A6B3-54BE-F4B0-D6A8A4AFA821</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\screenwait_screen">
+      <UniqueIdentifier>69781536-6F4E-A751-33E9-F532E8BA8D5C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\screenwait_screen">
+      <UniqueIdentifier>C7834139-56F7-F4D2-F060-0D9C9DDE1661</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\screenwait_screen">
+      <UniqueIdentifier>DB557D49-1F8C-34C5-EABC-B9D1A9BF8C6F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\screenwait_screen">
+      <UniqueIdentifier>82C0855D-82D6-B0F3-698A-93E18DF79CC5</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\screen4_screen">
+      <UniqueIdentifier>2674D0B0-1FF6-849F-F6D3-B38D9B6AE926</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\screen4_screen">
+      <UniqueIdentifier>7E55E532-365A-5040-963A-EDD89A0E07BA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\screen4_screen">
+      <UniqueIdentifier>EB488515-FF83-BB3C-EDB3-9B84EF9DF3E2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\screen4_screen">
+      <UniqueIdentifier>C901E5C6-8248-E5F2-AD9B-D4FD7A7BFC42</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\screenend_screen">
+      <UniqueIdentifier>2E8A2B29-5C00-2E9C-79CF-335B21A16427</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\screenend_screen">
+      <UniqueIdentifier>C5345933-0254-9FCF-EA6D-CAA29731A742</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\screenend_screen">
+      <UniqueIdentifier>D37FA9DE-9952-AC64-4A00-4ECA4355B0BB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\screenend_screen">
+      <UniqueIdentifier>1506B558-9D55-28F0-F86D-B0C3173931B6</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -266,6 +302,33 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\screen3_screen\Screen3ViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\screen3_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screenwait_screen\ScreenWaitPresenter.cpp">
+      <Filter>Source Files\gui\screenwait_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screenwait_screen\ScreenWaitView.cpp">
+      <Filter>Source Files\gui\screenwait_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\screenwait_screen\ScreenWaitViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\screenwait_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screen4_screen\Screen4Presenter.cpp">
+      <Filter>Source Files\gui\screen4_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screen4_screen\Screen4View.cpp">
+      <Filter>Source Files\gui\screen4_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\screen4_screen\Screen4ViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\screen4_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screenend_screen\ScreenEndPresenter.cpp">
+      <Filter>Source Files\gui\screenend_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screenend_screen\ScreenEndView.cpp">
+      <Filter>Source Files\gui\screenend_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\screenend_screen\ScreenEndViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\screenend_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -735,6 +798,33 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen3_screen\Screen3ViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\screen3_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screenwait_screen\ScreenWaitPresenter.hpp">
+      <Filter>Header Files\gui\screenwait_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screenwait_screen\ScreenWaitView.hpp">
+      <Filter>Header Files\gui\screenwait_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screenwait_screen\ScreenWaitViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\screenwait_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screen4_screen\Screen4Presenter.hpp">
+      <Filter>Header Files\gui\screen4_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screen4_screen\Screen4View.hpp">
+      <Filter>Header Files\gui\screen4_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen4_screen\Screen4ViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\screen4_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screenend_screen\ScreenEndPresenter.hpp">
+      <Filter>Header Files\gui\screenend_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screenend_screen\ScreenEndView.hpp">
+      <Filter>Header Files\gui\screenend_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screenend_screen\ScreenEndViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\screenend_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

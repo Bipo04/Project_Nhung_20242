@@ -3,18 +3,26 @@
 /*********************************************************************************/
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
 #include <touchgfx/Color.hpp>
+#include <images/BitmapDatabase.hpp>
 
-Screen1ViewBase::Screen1ViewBase()
+Screen1ViewBase::Screen1ViewBase() :
+    flexButtonCallback(this, &Screen1ViewBase::flexButtonCallbackHandler)
 {
     __background.setPosition(0, 0, 240, 320);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
-    boxWithBorder1_3.setPosition(20, 10, 150, 300);
-    boxWithBorder1_3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    boxWithBorder1_3.setBorderColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    boxWithBorder1_3.setBorderSize(0);
-    add(boxWithBorder1_3);
+    image1.setXY(0, 0);
+    image1.setBitmap(touchgfx::Bitmap(BITMAP_PLAY_SCREEN_MIN_ID));
+    add(image1);
+
+    flexButton1.setBoxWithBorderPosition(0, 0, 42, 42);
+    flexButton1.setBorderSize(5);
+    flexButton1.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    flexButton1.setAlpha(0);
+    flexButton1.setAction(flexButtonCallback);
+    flexButton1.setPosition(184, 271, 42, 42);
+    add(flexButton1);
 }
 
 Screen1ViewBase::~Screen1ViewBase()
@@ -25,4 +33,15 @@ Screen1ViewBase::~Screen1ViewBase()
 void Screen1ViewBase::setupScreen()
 {
 
+}
+
+void Screen1ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
+{
+    if (&src == &flexButton1)
+    {
+        //Interaction1
+        //When flexButton1 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
 }

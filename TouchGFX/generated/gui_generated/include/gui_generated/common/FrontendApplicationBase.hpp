@@ -23,11 +23,14 @@ public:
     // Screen2
     void gotoScreen2ScreenNoTransition();
 
-    // Screen3
-    void gotoScreen3ScreenNoTransition();
+    // ScreenWait
+    void gotoScreenWaitScreenNoTransition();
 
     // Screen1
     void gotoScreen1ScreenNoTransition();
+
+    // Screen3
+    void gotoScreen3ScreenNoTransition();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -37,11 +40,14 @@ protected:
     // Screen2
     void gotoScreen2ScreenNoTransitionImpl();
 
-    // Screen3
-    void gotoScreen3ScreenNoTransitionImpl();
+    // ScreenWait
+    void gotoScreenWaitScreenNoTransitionImpl();
 
     // Screen1
     void gotoScreen1ScreenNoTransitionImpl();
+
+    // Screen3
+    void gotoScreen3ScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

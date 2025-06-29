@@ -6,7 +6,7 @@ extern osMessageQueueId_t Queue2Handle;
 
 Screen2View::Screen2View()
 {
-
+    tickCount = 0;
 }
 
 void Screen2View::setupScreen()
@@ -39,4 +39,47 @@ void Screen2View::turnOnMode2()
     {
         osMessageQueuePut(Queue2Handle, &mode, 0, 10);
     }
+}
+
+void Screen2View::handleTickEvent()
+{
+    tickCount++;
+    switch(tickCount % 18) {
+        case 0:  // Phase 1 - First image disappears
+            image6.setVisible(false);
+            image7.setVisible(true);
+            image5.setVisible(true);
+            break;
+            
+        case 3:  // Phase 2 - Second image disappears
+            image6.setVisible(false);
+            image7.setVisible(false);
+            image5.setVisible(true);
+            break;
+            
+        case 6:  // Phase 3 - Third image disappears
+            image6.setVisible(false);
+            image7.setVisible(false);
+            image5.setVisible(false);
+            break;
+            
+        case 9:  // Phase 4 - First image appears
+            image6.setVisible(true);
+            image7.setVisible(false);
+            image5.setVisible(false);
+            break;
+            
+        case 12:  // Phase 5 - Second image appears
+            image6.setVisible(true);
+            image7.setVisible(true);
+            image5.setVisible(false);
+            break;
+            
+        case 15:  // Phase 6 - Third image appears
+            image6.setVisible(true);
+            image7.setVisible(true);
+            image5.setVisible(true);
+            break;
+    }
+    invalidate();
 }

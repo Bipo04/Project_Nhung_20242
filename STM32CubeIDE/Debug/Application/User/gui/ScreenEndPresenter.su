@@ -1,0 +1,5 @@
+../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp:28:13:ScreenEndPresenter::~ScreenEndPresenter()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screenend_screen/ScreenEndPresenter.cpp:10:6:virtual void ScreenEndPresenter::activate()	0	static
+../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp:28:13:virtual ScreenEndPresenter::~ScreenEndPresenter()	8	static
+../../TouchGFX/gui/include/gui/screenend_screen/ScreenEndPresenter.hpp:28:13:virtual void* ScreenEndPresenter::_ZThn4_N18ScreenEndPresenterD1Ev()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screenend_screen/ScreenEndPresenter.cpp:4:1:ScreenEndPresenter::ScreenEndPresenter(ScreenEndView&)	0	static

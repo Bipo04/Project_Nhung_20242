@@ -1,5 +1,5 @@
 Application/User/generated/Screen2ViewBase.o: \
- C:/TouchGFXProjects/MyApplication_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp \
+ C:/TouchGFXProjects/Tetris/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \

@@ -12,24 +12,28 @@ Screen2ViewBase::Screen2ViewBase() :
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
-    image1.setXY(88, 168);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_BATDAU_ID));
-    add(image1);
+    image8.setXY(0, 0);
+    image8.setBitmap(touchgfx::Bitmap(BITMAP_GEM_SCREEN_ID));
+    add(image8);
 
-    image2.setXY(208, 0);
-    image2.setBitmap(touchgfx::Bitmap(BITMAP_GAME_CONTROL_ID));
-    add(image2);
+    image5.setXY(86, 16);
+    image5.setBitmap(touchgfx::Bitmap(BITMAP_BLOCK___ID));
+    add(image5);
 
-    image3.setXY(208, 44);
-    image3.setBitmap(touchgfx::Bitmap(BITMAP_SENSOR_ID));
-    add(image3);
+    image6.setXY(-73, 10);
+    image6.setBitmap(touchgfx::Bitmap(BITMAP_BLOCK__ID));
+    add(image6);
+
+    image7.setXY(13, 23);
+    image7.setBitmap(touchgfx::Bitmap(BITMAP_BLOCK_ID));
+    add(image7);
 
     flexButton2.setBoxWithBorderPosition(0, 0, 32, 32);
     flexButton2.setBorderSize(5);
     flexButton2.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton2.setAlpha(0);
     flexButton2.setAction(flexButtonCallback);
-    flexButton2.setPosition(208, 0, 32, 32);
+    flexButton2.setPosition(151, 7, 32, 32);
     add(flexButton2);
 
     flexButton3.setBoxWithBorderPosition(0, 0, 32, 32);
@@ -37,28 +41,16 @@ Screen2ViewBase::Screen2ViewBase() :
     flexButton3.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton3.setAlpha(0);
     flexButton3.setAction(flexButtonCallback);
-    flexButton3.setPosition(208, 44, 32, 32);
+    flexButton3.setPosition(199, 7, 32, 32);
     add(flexButton3);
 
-    flexButton1.setBoxWithBorderPosition(0, 0, 64, 26);
+    flexButton1.setBoxWithBorderPosition(0, 0, 83, 28);
     flexButton1.setBorderSize(5);
     flexButton1.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton1.setAlpha(0);
     flexButton1.setAction(flexButtonCallback);
-    flexButton1.setPosition(88, 187, 64, 26);
+    flexButton1.setPosition(77, 126, 83, 28);
     add(flexButton1);
-
-    image4.setXY(104, 241);
-    image4.setBitmap(touchgfx::Bitmap(BITMAP_START_ID));
-    add(image4);
-
-    flexButton4.setBoxWithBorderPosition(0, 0, 32, 32);
-    flexButton4.setBorderSize(5);
-    flexButton4.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
-    flexButton4.setAlpha(0);
-    flexButton4.setAction(flexButtonCallback);
-    flexButton4.setPosition(104, 241, 32, 32);
-    add(flexButton4);
 }
 
 Screen2ViewBase::~Screen2ViewBase()
@@ -76,9 +68,9 @@ void Screen2ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonCo
     if (&src == &flexButton1)
     {
         //Interaction1
-        //When flexButton1 clicked change screen to Screen1
-        //Go to Screen1 with no screen transition
-        application().gotoScreen1ScreenNoTransition();
+        //When flexButton1 clicked change screen to ScreenWait
+        //Go to ScreenWait with no screen transition
+        application().gotoScreenWaitScreenNoTransition();
     }
     if (&src == &flexButton2)
     {
@@ -93,12 +85,5 @@ void Screen2ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonCo
         //When flexButton3 clicked call virtual function
         //Call turnOnMode2
         turnOnMode2();
-    }
-    if (&src == &flexButton4)
-    {
-        //Interaction4
-        //When flexButton4 clicked change screen to Screen3
-        //Go to Screen3 with no screen transition
-        application().gotoScreen3ScreenNoTransition();
     }
 }

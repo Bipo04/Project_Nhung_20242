@@ -253,7 +253,7 @@ int main(void)
 
   /* creation of myTask03 */
   myTask03Handle = osThreadNew(StartTask03, NULL, &myTask03_attributes);
-  osThreadSuspend(myTask03Handle);
+  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
 
   /* creation of myTask04 */
   myTask04Handle = osThreadNew(StartTask04, NULL, &myTask04_attributes);
@@ -1071,11 +1071,14 @@ void StartDefaultTask(void *argument)
       if (count > 0) {
         uint8_t mode;
         osMessageQueueGet(Queue2Handle, &mode, NULL, 0);
-        if (mode == 0)
-          HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-        if (mode == 1)
-          HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
         currentMode = mode == 0 ? MODE_TASK3 : MODE_TASK4; // Cập nhật chế độ hiện tại dựa trên giá trị nhận được từ Queue2
+        if (currentMode == 0) {
+          HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
+        } else if (currentMode == 1) {
+          HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+        }
         updateTasksBasedOnMode(); // Cập nhật trạng thái của các task dựa trên chế độ hiện tại
       }
       osDelay(1);
@@ -1121,7 +1124,7 @@ void StartTask03(void *argument)
     {
       if(msg == 'L' || msg == 'R' || msg == 'D' || msg == 'C') {
         osMessageQueuePut(Queue1Handle, &msg, 0, 10);
-        osDelay(80);
+        osDelay(300);
       }
     }
     osDelay(10);
@@ -1163,7 +1166,7 @@ void StartTask04(void *argument)
       if (count < 1)
       {
         osMessageQueuePut(Queue1Handle, &data, 0, 10);
-        osDelay(80);
+        osDelay(300);
       }
     }
     osDelay(10);

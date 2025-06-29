@@ -11,7 +11,9 @@ public:
     virtual ~Screen2View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void handleTickEvent();
 protected:
+    uint32_t tickCount;
     virtual void turnOnMode1() override;  // Override phương thức từ lớp cơ sở
     virtual void turnOnMode2() override;  // Override phương thức từ lớp cơ sở
 };

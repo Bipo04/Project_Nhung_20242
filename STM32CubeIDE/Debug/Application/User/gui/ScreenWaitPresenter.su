@@ -1,0 +1,5 @@
+../../TouchGFX/gui/include/gui/screenwait_screen/ScreenWaitPresenter.hpp:28:13:ScreenWaitPresenter::~ScreenWaitPresenter()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screenwait_screen/ScreenWaitPresenter.cpp:10:6:virtual void ScreenWaitPresenter::activate()	0	static
+../../TouchGFX/gui/include/gui/screenwait_screen/ScreenWaitPresenter.hpp:28:13:virtual ScreenWaitPresenter::~ScreenWaitPresenter()	8	static
+../../TouchGFX/gui/include/gui/screenwait_screen/ScreenWaitPresenter.hpp:28:13:virtual void* ScreenWaitPresenter::_ZThn4_N19ScreenWaitPresenterD1Ev()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screenwait_screen/ScreenWaitPresenter.cpp:4:1:ScreenWaitPresenter::ScreenWaitPresenter(ScreenWaitView&)	0	static

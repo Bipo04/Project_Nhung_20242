@@ -6,34 +6,43 @@
         "Components": [
           {
             "Type": "Image",
-            "Name": "image1",
-            "X": 88,
-            "Y": 168,
-            "Width": 64,
-            "Height": 64,
-            "RelativeFilename": "batdau.png"
+            "Name": "image8",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "gem_screen.png"
           },
           {
             "Type": "Image",
-            "Name": "image2",
-            "X": 208,
-            "Width": 32,
-            "Height": 32,
-            "RelativeFilename": "game-control.png"
+            "Name": "image5",
+            "X": 86,
+            "Y": 16,
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "block--.png"
           },
           {
             "Type": "Image",
-            "Name": "image3",
-            "X": 208,
-            "Y": 44,
-            "Width": 32,
-            "Height": 32,
-            "RelativeFilename": "sensor.png"
+            "Name": "image6",
+            "X": -73,
+            "Y": 10,
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "block-.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image7",
+            "X": 13,
+            "Y": 23,
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "block.png"
           },
           {
             "Type": "FlexButton",
             "Name": "flexButton2",
-            "X": 208,
+            "X": 151,
+            "Y": 7,
             "Width": 32,
             "Height": 32,
             "Alpha": 0,
@@ -70,8 +79,8 @@
           {
             "Type": "FlexButton",
             "Name": "flexButton3",
-            "X": 208,
-            "Y": 44,
+            "X": 199,
+            "Y": 7,
             "Width": 32,
             "Height": 32,
             "Alpha": 0,
@@ -108,10 +117,10 @@
           {
             "Type": "FlexButton",
             "Name": "flexButton1",
-            "X": 88,
-            "Y": 187,
-            "Width": 64,
-            "Height": 26,
+            "X": 77,
+            "Y": 126,
+            "Width": 83,
+            "Height": 28,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -119,8 +128,94 @@
             "ButtonStyles": [
               {
                 "Type": "BoxWithBorderButtonStyle",
-                "Width": 64,
-                "Height": 26,
+                "Width": 83,
+                "Height": 28,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "ScreenWait"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton2"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "turnOnMode1"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton3"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "turnOnMode2"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScreenWait",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "choose_mode_ques.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 26,
+            "Y": 111,
+            "Width": 70,
+            "Height": 29,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 70,
+                "Height": 29,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -144,21 +239,12 @@
             ]
           },
           {
-            "Type": "Image",
-            "Name": "image4",
-            "X": 104,
-            "Y": 241,
-            "Width": 32,
-            "Height": 32,
-            "RelativeFilename": "start.png"
-          },
-          {
             "Type": "FlexButton",
-            "Name": "flexButton4",
-            "X": 104,
-            "Y": 241,
-            "Width": 32,
-            "Height": 32,
+            "Name": "flexButton2",
+            "X": 141,
+            "Y": 111,
+            "Width": 75,
+            "Height": 29,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -166,8 +252,8 @@
             "ButtonStyles": [
               {
                 "Type": "BoxWithBorderButtonStyle",
-                "Width": 32,
-                "Height": 32,
+                "Width": 75,
+                "Height": 29,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -211,28 +297,6 @@
               "TriggerComponent": "flexButton2"
             },
             "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "turnOnMode1"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flexButton3"
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "turnOnMode2"
-            }
-          },
-          {
-            "InteractionName": "Interaction4",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flexButton4"
-            },
-            "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "Screen3"
@@ -241,65 +305,205 @@
         ]
       },
       {
+        "Name": "Screen1",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "play_screen-min.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 184,
+            "Y": 271,
+            "Width": 42,
+            "Height": 42,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 42,
+                "Height": 42,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          }
+        ]
+      },
+      {
         "Name": "Screen3",
         "Components": [
           {
-            "Type": "BoxWithBorder",
-            "Name": "boxWithBorder1_3",
-            "X": 20,
-            "Y": 10,
-            "Width": 150,
-            "Height": 300,
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 183,
+            "Y": 269,
+            "Width": 43,
+            "Height": 45,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 43,
+                "Height": 45,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "play_screen-min.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 119,
+            "Y": 190,
+            "Width": 172,
+            "Height": 30,
+            "TextId": "toadox",
+            "TextRotation": "0",
             "Color": {
               "Red": 255,
               "Green": 255,
               "Blue": 255
             },
-            "BorderColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 49,
-            "Y": 24,
-            "Width": 130,
-            "Height": 20,
-            "TextId": "toadox",
-            "TextRotation": "0",
-            "AutoSize": true,
             "Wildcard1": {
               "TextId": "x_value"
             }
           }
         ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Screen4",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "play_screen-min.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 185,
+            "Y": 271,
+            "Width": 41,
+            "Height": 43,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 41,
+                "Height": 43,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          }
+        ],
         "Interactions": []
       },
       {
-        "Name": "Screen1",
-        "Components": [
-          {
-            "Type": "BoxWithBorder",
-            "Name": "boxWithBorder1_3",
-            "X": 20,
-            "Y": 10,
-            "Width": 150,
-            "Height": 300,
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "BorderColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          }
-        ],
+        "Name": "ScreenEnd",
+        "Components": [],
         "Interactions": []
       }
     ],
