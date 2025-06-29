@@ -3,6 +3,7 @@
 #include <cstring>
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
+#include <cstdlib>  // Để sử dụng abs()
 
 extern osMessageQueueId_t Queue1Handle;
 
@@ -84,10 +85,15 @@ Screen1View::Screen1View() :
     currentX(80),
     currentY(10),
     currentShape(0),
-    nextShape(1),  // Khởi tạo shape tiếp theo
     tickCount(0),
-    isGameOver(false)
+    isGameOver(false),
+    bagIndex(0),
+    randomSeed(2611)
 {
+    // Khởi tạo Bag Randomizer
+    initializeBag();
+    nextShape = getNextShape();
+    
     // Khởi tạo board trống
     memset(board, 0, sizeof(board));
     
@@ -244,7 +250,7 @@ void Screen1View::checkAndClearLines()
         textArea1.setWildcard(textArea1Buffer);
         textArea1.setTypedText(touchgfx::TypedText(T_MAN1));
         textArea1.invalidate(); // Vẽ lại nội dung
-        // First remove all full lines
+
         for(int i = 0; i < numFullLines; i++) {
             int lineY = fullLines[i];
             for(int x = 0; x < BOARD_WIDTH; x++) {
@@ -253,7 +259,6 @@ void Screen1View::checkAndClearLines()
             }
         }
 
-        // Then move remaining blocks down
         for(int y = fullLines[0]; y >= 0; y--) {
             // Calculate how many lines this row should move down
             int shiftDown = 0;
@@ -281,30 +286,6 @@ void Screen1View::checkAndClearLines()
         }
         
         invalidate();
-    }
-}
-
-void Screen1View::moveLinesDown(int clearedLine)
-{
-    // Di chuyển các hàng phía trên xuống
-    for(int y = clearedLine; y > 0; y--) {
-        for(int x = 0; x < BOARD_WIDTH; x++) {
-            board[y][x] = board[y-1][x];
-            if(board[y][x]) {
-                staticBlocks[y][x].setPosition(
-                    20 + (x * BLOCK_SIZE),
-                    10 + (y * BLOCK_SIZE),
-                    BLOCK_SIZE,
-                    BLOCK_SIZE
-                );
-                add(staticBlocks[y][x]);
-            }
-        }
-    }
-    
-    // Xóa hàng trên cùng
-    for(int x = 0; x < BOARD_WIDTH; x++) {
-        board[0][x] = false;
     }
 }
 
@@ -409,8 +390,9 @@ void Screen1View::createNewTetromino()
     
     // Sử dụng nextShape làm currentShape
     currentShape = nextShape;
-    // Tạo nextShape mới (random hoặc theo thứ tự)
-    nextShape = (nextShape + 1) % TETRIS_SHAPES;
+    
+    // Lấy hình tiếp theo từ Bag Randomizer
+    nextShape = getNextShape();
     
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
@@ -446,17 +428,16 @@ void Screen1View::createNewTetromino()
         flexButton2.setVisible(true);
         flexButton3.setVisible(true);
 
-        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+        Unicode::snprintf(textArea2Buffer, sizeof(textArea2Buffer), "%d", score);
 
         textArea2.setVisible(true);
-        textArea2.setWildcard(textArea1Buffer);
+        textArea2.setWildcard(textArea2Buffer);
         textArea2.setTypedText(touchgfx::TypedText(T_MAN1SCORE));
-        textArea2.invalidate(); // Vẽ lại nội dung
+        textArea2.invalidate();
         
         invalidate();
     }
     else {
-        // Nếu có thể tạo hình mới, vẽ nó
         drawTetromino(currentShape, currentX, currentY);
     }
 }
@@ -552,4 +533,49 @@ void Screen1View::clearScreen()
             remove(nextBlocks[y][x]);
         }
     }
+}
+
+// ========================= BAG RANDOMIZER IMPLEMENTATION =========================
+
+void Screen1View::initializeBag()
+{
+    // Khởi tạo túi với 7 hình tetromino (0-6)
+    for(int i = 0; i < BAG_SIZE; i++) {
+        bag[i] = i;
+    }
+    shuffleBag();
+    bagIndex = 0;
+}
+
+void Screen1View::shuffleBag()
+{
+    // Fisher-Yates shuffle algorithm
+    for(int i = BAG_SIZE - 1; i > 0; i--) {
+        int j = simpleRandom() % (i + 1);
+        
+        // Swap bag[i] và bag[j]
+        uint8_t temp = bag[i];
+        bag[i] = bag[j];
+        bag[j] = temp;
+    }
+}
+
+int Screen1View::getNextShape()
+{
+    // Nếu đã hết túi, khởi tạo túi mới
+    if(bagIndex >= BAG_SIZE) {
+        shuffleBag();
+        bagIndex = 0;
+    }
+    
+    return bag[bagIndex++];
+}
+
+uint32_t Screen1View::simpleRandom()
+{
+    // Linear Congruential Generator (LCG)
+    // Sử dụng công thức: next = (a * seed + c) % m
+    // a = 1664525, c = 1013904223, m = 2^32
+    randomSeed = randomSeed * 1664525 + 1013904223 + score - 2611;
+    return randomSeed;
 }

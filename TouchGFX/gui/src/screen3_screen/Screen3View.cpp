@@ -6,7 +6,6 @@
 
 extern osMessageQueueId_t Queue1Handle;
 
-// Định nghĩa mảng TETROMINOS với các hình Tetris
 const uint8_t Screen3View::TETROMINOS[TETRIS_SHAPES][4][4] = {
     // Hình I
     {
@@ -69,7 +68,7 @@ const touchgfx::BitmapId Screen3View::TETROMINO_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT_ID   // Z shape
 };
 
-// Mảng bitmap cho khối tiếp theo (9PX - nhỏ hơn)
+// Mảng bitmap cho khối tiếp theo (9PX)
 const touchgfx::BitmapId Screen3View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE9PX_ID,         // I shape
     BITMAP_RED9PX_ID,          // J shape  
@@ -80,52 +79,191 @@ const touchgfx::BitmapId Screen3View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT9PX_ID   // Z shape
 };
 
-const int NUM_FIXED_BLOCKS = 7;
-const int BOTTOM_Y = 285;
-const int MIDDLE_Y = 200;
+//Mảng các khối cố định
+const uint8_t Screen3View::TETROMINOS_INIT[TETRIS_SHAPES_INIT][4][4] = {
+    // Hình I - ngang
+    {
+        {0,0,0,0},
+        {1,1,1,1},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình I - dọc
+    {
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,0,0,0}
+    },
+    // Hình J - 0 độ
+    {
+        {1,0,0,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 90 độ
+    {
+        {1,1,0,0},
+        {1,0,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 180 độ
+    {
+        {1,1,1,0},
+        {0,0,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 270 độ
+    {
+        {0,1,0,0},
+        {0,1,0,0},
+        {1,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 0 độ
+    {
+        {0,0,1,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 90 độ
+    {
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 180 độ
+    {
+        {1,1,1,0},
+        {1,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 270 độ
+    {
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình O (vuông)
+    {
+        {1,1,0,0},
+        {1,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình S - 0 độ
+    {
+        {0,1,1,0},
+        {1,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình S - 90 độ
+    {
+        {1,0,0,0},
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 0 độ
+    {
+        {0,1,0,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 90 độ
+    {
+        {1,0,0,0},
+        {1,1,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 180 độ
+    {
+        {1,1,1,0},
+        {0,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 270 độ
+    {
+        {0,1,0,0},
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình Z - 0 độ
+    {
+        {1,1,0,0},
+        {0,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình Z - 90 độ
+    {
+        {0,1,0,0},
+        {1,1,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    }
+};
 
-// Mảng chứa thông tin khối cố định: x, y, shape
 const int Screen3View::INIT_BLOCKS[NUM_FIXED_BLOCKS][3] = {
-    // X,    Y,    Shape
-    {20,   250,    0},   // I shape - bottom row
-    {65,   280,    6},   // J shape
-    {110,  280,    2},   // L shape
-    {110,  265,    4},   // S shape
-    {20,   280,    3},   // O shape - middle row
-    {20,   235,    5},   // T shape
-    {125,  235,    6}    // Z shape
+    // X,  Y,  Shape
+    {20,  250,  1 },   
+    {35,  265,  12},   
+    {50,  250,  13},   
+    {80,  280,  17},   
+    {95,  250,  10},   
+    {125, 280,  17},   
+    {125, 235,  3 },
+    {140, 220,  9 }
+};
+
+const uint8_t Screen3View::INIT_BLOCKS_TYPE[TETRIS_SHAPES_INIT] = {
+    0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6
 };
 
 Screen3View::Screen3View() : 
     currentX(80),
     currentY(10),
     currentShape(0),
-    nextShape(1),  // Khởi tạo shape tiếp theo
+    nextShape(1),
     tickCount(0),
     isGameOver(false),
-    isWin(false)
+    isWin(false),
+    bagIndex(0),
+    randomSeed(1324)
 {
-    // Khởi tạo board trống
+    // Khởi tạo Bag Randomizer
+    initializeBag();
+    nextShape = getNextShape();
+
     memset(board, 0, sizeof(board));
     
-    // Copy hình đầu tiên vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
     
-    // Vẽ khối đang di chuyển
     drawTetromino(currentShape, currentX, currentY);
 
-    // Vẽ khối tiếp theo
     drawNextTetromino();
 
     // Đặt các khối cố định vào board
-    for(int i = 0; i < 7; i++) {
+    for(int i = 0; i < NUM_FIXED_BLOCKS; i++) {
         int blockX = INIT_BLOCKS[i][0];
         int blockY = INIT_BLOCKS[i][1];
         int shape = INIT_BLOCKS[i][2];
         // Đặt từng ô của khối vào board
         for(int y = 0; y < 4; y++) {
             for(int x = 0; x < 4; x++) {
-                if(TETROMINOS[shape][y][x]) {
+                if(TETROMINOS_INIT[shape][y][x]) {
                     int boardX = (blockX - 20) / BLOCK_SIZE + x;
                     int boardY = (blockY - 10) / BLOCK_SIZE + y;
                     board[boardY][boardX] = true;
@@ -133,18 +271,26 @@ Screen3View::Screen3View() :
                         blockX + (x * BLOCK_SIZE),
                         blockY + (y * BLOCK_SIZE)
                     );
-                    staticBlocks[boardY][boardX].setBitmap(Bitmap(TETROMINO_IMAGES[shape]));
+                    staticBlocks[boardY][boardX].setBitmap(Bitmap(TETROMINO_IMAGES[INIT_BLOCKS_TYPE[shape]]));
                     add(staticBlocks[boardY][boardX]);
                 }
             }
         }
     }
+
     score = 0;
     Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
 
     textArea1.setWildcard(textArea1Buffer);
     textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
-    textArea1.invalidate(); // Vẽ lại nội dung};
+    textArea1.invalidate();
+
+    targetScore = 200;
+    Unicode::snprintf(textArea3Buffer, sizeof(textArea3Buffer), "%d", targetScore);
+
+    textArea3.setWildcard(textArea3Buffer);
+    textArea3.setTypedText(touchgfx::TypedText(T_TARGET3));
+    textArea3.invalidate();
 }
 
 void Screen3View::setupScreen()
@@ -322,7 +468,7 @@ void Screen3View::checkAndClearLines()
         
         invalidate();
     }
-    if (score >= 20) {
+    if (score >= targetScore) {
         isWin = true;
         clearScreen();
         image3.setVisible(true);
@@ -330,30 +476,6 @@ void Screen3View::checkAndClearLines()
         flexButton4.setVisible(true);
         flexButton5.setVisible(true);
         invalidate();
-    }
-}
-
-void Screen3View::moveLinesDown(int clearedLine)
-{
-    // Di chuyển các hàng phía trên xuống
-    for(int y = clearedLine; y > 0; y--) {
-        for(int x = 0; x < BOARD_WIDTH; x++) {
-            board[y][x] = board[y-1][x];
-            if(board[y][x]) {
-                staticBlocks[y][x].setPosition(
-                    20 + (x * BLOCK_SIZE),
-                    10 + (y * BLOCK_SIZE),
-                    BLOCK_SIZE,
-                    BLOCK_SIZE
-                );
-                add(staticBlocks[y][x]);
-            }
-        }
-    }
-    
-    // Xóa hàng trên cùng
-    for(int x = 0; x < BOARD_WIDTH; x++) {
-        board[0][x] = false;
     }
 }
 
@@ -458,7 +580,7 @@ void Screen3View::createNewTetromino()
     // Sử dụng nextShape làm currentShape
     currentShape = nextShape;
     // Tạo nextShape mới (random hoặc theo thứ tự)
-    nextShape = (nextShape + 1) % TETRIS_SHAPES;
+    nextShape = getNextShape();
     
     // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
@@ -494,10 +616,10 @@ void Screen3View::createNewTetromino()
         flexButton2.setVisible(true);
         flexButton3.setVisible(true);
 
-        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+        Unicode::snprintf(textArea2Buffer, sizeof(textArea2Buffer), "%d", score);
 
         textArea2.setVisible(true);
-        textArea2.setWildcard(textArea1Buffer);
+        textArea2.setWildcard(textArea2Buffer);
         textArea2.setTypedText(touchgfx::TypedText(T_MAN3SCORE));
         textArea2.invalidate(); // Vẽ lại nội dung
         invalidate();
@@ -601,4 +723,50 @@ void Screen3View::clearScreen()
             remove(nextBlocks[y][x]);
         }
     }
+}
+
+
+// ========================= BAG RANDOMIZER IMPLEMENTATION =========================
+
+void Screen3View::initializeBag()
+{
+    // Khởi tạo túi với 7 hình tetromino (0-6)
+    for(int i = 0; i < BAG_SIZE; i++) {
+        bag[i] = i;
+    }
+    shuffleBag();
+    bagIndex = 0;
+}
+
+void Screen3View::shuffleBag()
+{
+    // Fisher-Yates shuffle algorithm
+    for(int i = BAG_SIZE - 1; i > 0; i--) {
+        int j = simpleRandom() % (i + 1);
+        
+        // Swap bag[i] và bag[j]
+        uint8_t temp = bag[i];
+        bag[i] = bag[j];
+        bag[j] = temp;
+    }
+}
+
+int Screen3View::getNextShape()
+{
+    // Nếu đã hết túi, khởi tạo túi mới
+    if(bagIndex >= BAG_SIZE) {
+        shuffleBag();
+        bagIndex = 0;
+    }
+    
+    return bag[bagIndex++];
+}
+
+uint32_t Screen3View::simpleRandom()
+{
+    // Linear Congruential Generator (LCG)
+    // Sử dụng công thức: next = (a * seed + c) % m
+    // a = 1664525, c = 1013904223, m = 2^32
+    randomSeed = randomSeed * 1664525 + 1013904223 + score - 2611;
+    return randomSeed;
 }

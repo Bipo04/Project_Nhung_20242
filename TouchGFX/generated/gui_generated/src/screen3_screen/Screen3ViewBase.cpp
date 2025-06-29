@@ -32,6 +32,18 @@ Screen3ViewBase::Screen3ViewBase() :
     textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
     add(textArea1);
 
+    image4.setXY(168, 0);
+    image4.setBitmap(touchgfx::Bitmap(BITMAP_LV1_ID));
+    add(image4);
+
+    textArea3.setXY(140, 59);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea3.setLinespacing(0);
+    textArea3.setWildcard(touchgfx::TypedText(T___SINGLEUSE_7D4F).getText());
+    textArea3.resizeToCurrentText();
+    textArea3.setTypedText(touchgfx::TypedText(T_TARGET3));
+    add(textArea3);
+
     image2.setXY(0, 0);
     image2.setBitmap(touchgfx::Bitmap(BITMAP_SCORE_ID));
     image2.setVisible(false);

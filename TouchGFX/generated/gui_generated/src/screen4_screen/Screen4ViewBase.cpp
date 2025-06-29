@@ -6,7 +6,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-Screen4ViewBase::Screen4ViewBase()
+Screen4ViewBase::Screen4ViewBase() :
+    flexButtonCallback(this, &Screen4ViewBase::flexButtonCallbackHandler)
 {
     __background.setPosition(0, 0, 240, 320);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -20,6 +21,7 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton1.setBorderSize(5);
     flexButton1.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton1.setAlpha(0);
+    flexButton1.setAction(flexButtonCallback);
     flexButton1.setPosition(185, 271, 41, 43);
     add(flexButton1);
 
@@ -29,6 +31,18 @@ Screen4ViewBase::Screen4ViewBase()
     textArea1.setWildcard(touchgfx::TypedText(T___SINGLEUSE_9028).getText());
     textArea1.setTypedText(touchgfx::TypedText(T_MAN4));
     add(textArea1);
+
+    image4.setXY(168, 0);
+    image4.setBitmap(touchgfx::Bitmap(BITMAP_LV2_ID));
+    add(image4);
+
+    textArea3.setXY(140, 54);
+    textArea3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea3.setLinespacing(0);
+    textArea3.setWildcard(touchgfx::TypedText(T___SINGLEUSE_4P4L).getText());
+    textArea3.resizeToCurrentText();
+    textArea3.setTypedText(touchgfx::TypedText(T_TARGET4));
+    add(textArea3);
 
     image2.setXY(0, 0);
     image2.setBitmap(touchgfx::Bitmap(BITMAP_SCORE_ID));
@@ -45,6 +59,7 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton2.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton2.setAlpha(0);
     flexButton2.setVisible(false);
+    flexButton2.setAction(flexButtonCallback);
     flexButton2.setPosition(42, 127, 65, 31);
     add(flexButton2);
 
@@ -53,6 +68,7 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton3.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton3.setAlpha(0);
     flexButton3.setVisible(false);
+    flexButton3.setAction(flexButtonCallback);
     flexButton3.setPosition(133, 127, 65, 31);
     add(flexButton3);
 
@@ -61,6 +77,7 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton4.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton4.setAlpha(0);
     flexButton4.setVisible(false);
+    flexButton4.setAction(flexButtonCallback);
     flexButton4.setPosition(38, 121, 65, 31);
     add(flexButton4);
 
@@ -69,6 +86,7 @@ Screen4ViewBase::Screen4ViewBase()
     flexButton5.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flexButton5.setAlpha(0);
     flexButton5.setVisible(false);
+    flexButton5.setAction(flexButtonCallback);
     flexButton5.setPosition(142, 121, 65, 31);
     add(flexButton5);
 
@@ -89,4 +107,43 @@ Screen4ViewBase::~Screen4ViewBase()
 void Screen4ViewBase::setupScreen()
 {
 
+}
+
+void Screen4ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
+{
+    if (&src == &flexButton1)
+    {
+        //Interaction1
+        //When flexButton1 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
+    if (&src == &flexButton2)
+    {
+        //Interaction2
+        //When flexButton2 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
+    if (&src == &flexButton3)
+    {
+        //Interaction3
+        //When flexButton3 clicked change screen to Screen4
+        //Go to Screen4 with no screen transition
+        application().gotoScreen4ScreenNoTransition();
+    }
+    if (&src == &flexButton4)
+    {
+        //Interaction4
+        //When flexButton4 clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+    }
+    if (&src == &flexButton5)
+    {
+        //Interaction5
+        //When flexButton5 clicked change screen to Screen4
+        //Go to Screen4 with no screen transition
+        application().gotoScreen4ScreenNoTransition();
+    }
 }

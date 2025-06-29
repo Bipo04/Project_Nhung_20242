@@ -69,7 +69,7 @@ const touchgfx::BitmapId Screen4View::TETROMINO_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT_ID   // Z shape
 };
 
-// Mảng bitmap cho khối tiếp theo (9PX - nhỏ hơn)
+// Mảng bitmap cho khối tiếp theo (9PX)
 const touchgfx::BitmapId Screen4View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE9PX_ID,         // I shape
     BITMAP_RED9PX_ID,          // J shape  
@@ -80,52 +80,189 @@ const touchgfx::BitmapId Screen4View::TETROMINO_NEXT_IMAGES[TETRIS_SHAPES] = {
     BITMAP_BLUE_BRIGHT9PX_ID   // Z shape
 };
 
-const int NUM_FIXED_BLOCKS = 7;
-const int BOTTOM_Y = 285;
-const int MIDDLE_Y = 200;
+//Mảng các khối cố đinh
+const uint8_t Screen4View::TETROMINOS_INIT[TETRIS_SHAPES_INIT][4][4] = {
+    // Hình I - ngang
+    {
+        {0,0,0,0},
+        {1,1,1,1},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình I - dọc
+    {
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,0,0,0}
+    },
+    // Hình J - 0 độ
+    {
+        {1,0,0,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 90 độ
+    {
+        {1,1,0,0},
+        {1,0,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 180 độ
+    {
+        {1,1,1,0},
+        {0,0,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình J - 270 độ
+    {
+        {0,1,0,0},
+        {0,1,0,0},
+        {1,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 0 độ
+    {
+        {0,0,1,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 90 độ
+    {
+        {1,0,0,0},
+        {1,0,0,0},
+        {1,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 180 độ
+    {
+        {1,1,1,0},
+        {1,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình L - 270 độ
+    {
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình O (vuông)
+    {
+        {1,1,0,0},
+        {1,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình S - 0 độ
+    {
+        {0,1,1,0},
+        {1,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình S - 90 độ
+    {
+        {1,0,0,0},
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 0 độ
+    {
+        {0,1,0,0},
+        {1,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 90 độ
+    {
+        {1,0,0,0},
+        {1,1,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 180 độ
+    {
+        {1,1,1,0},
+        {0,1,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình T - 270 độ
+    {
+        {0,1,0,0},
+        {1,1,0,0},
+        {0,1,0,0},
+        {0,0,0,0}
+    },
+    // Hình Z - 0 độ
+    {
+        {1,1,0,0},
+        {0,1,1,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    },
+    // Hình Z - 90 độ
+    {
+        {0,1,0,0},
+        {1,1,0,0},
+        {1,0,0,0},
+        {0,0,0,0}
+    }
+};
 
-// Mảng chứa thông tin khối cố định: x, y, shape
 const int Screen4View::INIT_BLOCKS[NUM_FIXED_BLOCKS][3] = {
-    // X,    Y,    Shape
-    {20,   250,    0},   // I shape - bottom row
-    {65,   280,    6},   // J shape
-    {110,  280,    2},   // L shape
-    {110,  265,    4},   // S shape
-    {20,   280,    3},   // O shape - middle row
-    {20,   235,    5},   // T shape
-    {125,  235,    6}    // Z shape
+    // X, Y,   Shape
+    {20,  265,  3 },   
+    {35,  235,  6 },   
+    {50,  265,  11},   
+    {65,  280,  0 },   
+    {95,  235,  16},   
+    {110, 280,  15},   
+    {125, 205,  7 },
+    {140, 250,  12},
+};
+
+const uint8_t Screen4View::INIT_BLOCKS_TYPE[TETRIS_SHAPES_INIT] = {
+    0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6
 };
 
 Screen4View::Screen4View() : 
     currentX(80),
     currentY(10),
     currentShape(0),
-    nextShape(1),  // Khởi tạo shape tiếp theo
+    nextShape(1),  
     tickCount(0),
     isGameOver(false),
-    isWin(false)
+    isWin(false),
+    bagIndex(0),
+    randomSeed(1324)
 {
-    // Khởi tạo board trống
+    // Khởi tạo Bag Randomizer
+    initializeBag();
+    nextShape = getNextShape();
+
     memset(board, 0, sizeof(board));
     
-    // Copy hình đầu tiên vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
     
-    // Vẽ khối đang di chuyển
     drawTetromino(currentShape, currentX, currentY);
 
-    // Vẽ khối tiếp theo
     drawNextTetromino();
 
-    // Đặt các khối cố định vào board
-    for(int i = 0; i < 7; i++) {
+    for(int i = 0; i < NUM_FIXED_BLOCKS; i++) {
         int blockX = INIT_BLOCKS[i][0];
         int blockY = INIT_BLOCKS[i][1];
         int shape = INIT_BLOCKS[i][2];
-        // Đặt từng ô của khối vào board
         for(int y = 0; y < 4; y++) {
             for(int x = 0; x < 4; x++) {
-                if(TETROMINOS[shape][y][x]) {
+                if(TETROMINOS_INIT[shape][y][x]) {
                     int boardX = (blockX - 20) / BLOCK_SIZE + x;
                     int boardY = (blockY - 10) / BLOCK_SIZE + y;
                     board[boardY][boardX] = true;
@@ -133,18 +270,26 @@ Screen4View::Screen4View() :
                         blockX + (x * BLOCK_SIZE),
                         blockY + (y * BLOCK_SIZE)
                     );
-                    staticBlocks[boardY][boardX].setBitmap(Bitmap(TETROMINO_IMAGES[shape]));
+                    staticBlocks[boardY][boardX].setBitmap(Bitmap(TETROMINO_IMAGES[INIT_BLOCKS_TYPE[shape]]));
                     add(staticBlocks[boardY][boardX]);
                 }
             }
         }
     }
+
     score = 0;
     Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
 
     textArea1.setWildcard(textArea1Buffer);
     textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
-    textArea1.invalidate(); // Vẽ lại nội dung};
+    textArea1.invalidate();
+
+    targetScore = 300;
+    Unicode::snprintf(textArea3Buffer, sizeof(textArea3Buffer), "%d", targetScore);
+
+    textArea3.setWildcard(textArea3Buffer);
+    textArea3.setTypedText(touchgfx::TypedText(T_TARGET4));
+    textArea3.invalidate();
 }
 
 void Screen4View::setupScreen()
@@ -157,17 +302,14 @@ void Screen4View::tearDownScreen()
     Screen4ViewBase::tearDownScreen();
 }
 
-// Use color array instead of images since we're using BoxWithBorder
 void Screen4View::drawTetromino(int shapeIndex, int startX, int startY)
 {
-    // Clear old blocks
     for(int y = 0; y < 4; y++) {
         for(int x = 0; x < 4; x++) {
             remove(blocks[y][x]);
         }
     }
 
-    // Draw new blocks with corresponding image
     for(int y = 0; y < 4; y++) {
         for(int x = 0; x < 4; x++) {
             if(currentTetromino[y][x] == 1) {
@@ -184,9 +326,8 @@ void Screen4View::drawTetromino(int shapeIndex, int startX, int startY)
 
 void Screen4View::drawNextTetromino()
 {
-    const int NEXT_BLOCK_SIZE = 9; // Kích thước block nhỏ hơn (9px)
+    const int NEXT_BLOCK_SIZE = 9; 
     
-    // Tọa độ hiển thị khối tiếp theo tùy theo loại hình
     int NEXT_START_X, NEXT_START_Y;
     
     switch(nextShape) {
@@ -194,7 +335,7 @@ void Screen4View::drawNextTetromino()
             NEXT_START_X = 187;
             NEXT_START_Y = 127;
             break;
-        case 3: // Hình O (vuông)
+        case 3: // Hình O
             NEXT_START_X = 195;
             NEXT_START_Y = 123;
             break;
@@ -230,7 +371,7 @@ bool Screen4View::checkCollision(int newX, int newY, int shape)
 {
     for(int y = 0; y < 4; y++) {
         for(int x = 0; x < 4; x++) {
-            if(currentTetromino[y][x]) {  // Thay đổi từ TETROMINOS sang currentTetromino
+            if(currentTetromino[y][x]) {
                 int boardX = (newX - 20) / BLOCK_SIZE + x;
                 int boardY = (newY - 10) / BLOCK_SIZE + y;
                 
@@ -250,10 +391,9 @@ bool Screen4View::checkCollision(int newX, int newY, int shape)
 
 void Screen4View::checkAndClearLines()
 {
-    int fullLines[BOARD_HEIGHT] = {0};  // Track which lines are full
+    int fullLines[BOARD_HEIGHT] = {0};
     int numFullLines = 0;
     
-    // First identify all full lines from bottom up
     for(int y = BOARD_HEIGHT - 1; y >= 0; y--) {
         bool isLineFull = true;
         for(int x = 0; x < BOARD_WIDTH; x++) {
@@ -267,24 +407,23 @@ void Screen4View::checkAndClearLines()
         }
     }
 
-    // If we found full lines
     if(numFullLines > 0) {
         // Update score
         if (numFullLines == 1) {
-            score += 10; // 1 line cleared
+            score += 10;
         } else if (numFullLines == 2) {
-            score += 30; // 2 lines cleared
+            score += 30; 
         } else if (numFullLines == 3) {
-            score += 50; // 3 lines cleared
+            score += 50;
         } else if (numFullLines >= 4) {
-            score += 100; // 4 or more lines cleared
+            score += 100; 
         }
         Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
 
         textArea1.setWildcard(textArea1Buffer);
         textArea1.setTypedText(touchgfx::TypedText(T_TOADOX));
-        textArea1.invalidate(); // Vẽ lại nội dung};
-        // First remove all full lines
+        textArea1.invalidate();
+
         for(int i = 0; i < numFullLines; i++) {
             int lineY = fullLines[i];
             for(int x = 0; x < BOARD_WIDTH; x++) {
@@ -293,9 +432,7 @@ void Screen4View::checkAndClearLines()
             }
         }
 
-        // Then move remaining blocks down
         for(int y = fullLines[0]; y >= 0; y--) {
-            // Calculate how many lines this row should move down
             int shiftDown = 0;
             for(int i = 0; i < numFullLines; i++) {
                 if(fullLines[i] > y) shiftDown++;
@@ -304,7 +441,6 @@ void Screen4View::checkAndClearLines()
             if(shiftDown > 0) {
                 for(int x = 0; x < BOARD_WIDTH; x++) {
                     if(board[y][x]) {
-                        // Move block down by shiftDown lines
                         board[y + shiftDown][x] = true;
                         board[y][x] = false;
                         
@@ -322,7 +458,7 @@ void Screen4View::checkAndClearLines()
         
         invalidate();
     }
-    if (score >= 20) {
+    if (score >= targetScore) {
         isWin = true;
         clearScreen();
         image3.setVisible(true);
@@ -330,30 +466,6 @@ void Screen4View::checkAndClearLines()
         flexButton4.setVisible(true);
         flexButton5.setVisible(true);
         invalidate();
-    }
-}
-
-void Screen4View::moveLinesDown(int clearedLine)
-{
-    // Di chuyển các hàng phía trên xuống
-    for(int y = clearedLine; y > 0; y--) {
-        for(int x = 0; x < BOARD_WIDTH; x++) {
-            board[y][x] = board[y-1][x];
-            if(board[y][x]) {
-                staticBlocks[y][x].setPosition(
-                    20 + (x * BLOCK_SIZE),
-                    10 + (y * BLOCK_SIZE),
-                    BLOCK_SIZE,
-                    BLOCK_SIZE
-                );
-                add(staticBlocks[y][x]);
-            }
-        }
-    }
-    
-    // Xóa hàng trên cùng
-    for(int x = 0; x < BOARD_WIDTH; x++) {
-        board[0][x] = false;
     }
 }
 
@@ -392,7 +504,6 @@ void Screen4View::handleTickEvent()
             osMessageQueueGet(Queue1Handle, &res, NULL, osWaitForever);
             if (res == 'L') 
             {
-                // Di chuyển khối sang trái
                 if (!checkCollision(currentX - BLOCK_SIZE, currentY, currentShape)) 
                 {
                     currentX -= BLOCK_SIZE;
@@ -401,7 +512,6 @@ void Screen4View::handleTickEvent()
             } 
             else if (res == 'R') 
             {
-                // Di chuyển khối sang phải
                 if (!checkCollision(currentX + BLOCK_SIZE, currentY, currentShape)) 
                 {
                     currentX += BLOCK_SIZE;
@@ -410,35 +520,29 @@ void Screen4View::handleTickEvent()
             }
             else if (res == 'D') 
             {
-                // Di chuyển khối xuống đến khi gặp vật cản
                 while (!checkCollision(currentX, currentY + BLOCK_SIZE, currentShape)) 
                 {
                     currentY += BLOCK_SIZE;
                     drawTetromino(currentShape, currentX, currentY);
                 }
-                // Đóng băng khối ngay lập tức sau khi chạm đáy
                 freezeTetromino();
                 createNewTetromino();
             }
             else if (res == 'C')
             {
-                rotateTetromino(); // Xoay hình nếu nhận được lệnh
+                rotateTetromino();
             }
         }
     }
     if (tickCount % 50 == 0) 
     {
-        // Kiểm tra va chạm khi di chuyển xuống
         if (checkCollision(currentX, currentY + BLOCK_SIZE, currentShape))
         {
-            // Đóng băng khối hiện tại
             freezeTetromino();
-            // Tạo khối mới
             createNewTetromino();
         }
         else
         {
-            // Di chuyển khối xuống
             currentY += BLOCK_SIZE;
             drawTetromino(currentShape, currentX, currentY);
         }
@@ -455,22 +559,17 @@ void Screen4View::createNewTetromino()
     currentY = 10;
     currentX = 80;
     
-    // Sử dụng nextShape làm currentShape
     currentShape = nextShape;
-    // Tạo nextShape mới (random hoặc theo thứ tự)
-    nextShape = (nextShape + 1) % TETRIS_SHAPES;
+    nextShape = getNextShape();
     
-    // Copy hình mới vào currentTetromino
     memcpy(currentTetromino, TETROMINOS[currentShape], sizeof(currentTetromino));
-    
-    // Cập nhật hiển thị khối tiếp theo
+
     drawNextTetromino();
-    
-    // Kiểm tra từng khối của hình muốn vẽ
+
     bool canCreate = true;
     for(int y = 0; y < 4 && canCreate; y++) {
         for(int x = 0; x < 4; x++) {
-            if(currentTetromino[y][x]) {  // Nếu ô này có khối
+            if(currentTetromino[y][x]) { 
                 int boardX = (currentX - 20) / BLOCK_SIZE + x;
                 int boardY = (currentY - 10) / BLOCK_SIZE + y;
                 
@@ -478,7 +577,6 @@ void Screen4View::createNewTetromino()
                 if(boardX >= 0 && boardX < BOARD_WIDTH && 
                    boardY >= 0 && boardY < BOARD_HEIGHT && 
                    board[boardY][boardX]) {
-                    // Vị trí đã bị chiếm - Game Over
                     canCreate = false;
                     break;
                 }
@@ -494,16 +592,15 @@ void Screen4View::createNewTetromino()
         flexButton2.setVisible(true);
         flexButton3.setVisible(true);
 
-        Unicode::snprintf(textArea1Buffer, sizeof(textArea1Buffer), "%d", score);
+        Unicode::snprintf(textArea2Buffer, sizeof(textArea2Buffer), "%d", score);
 
         textArea2.setVisible(true);
-        textArea2.setWildcard(textArea1Buffer);
+        textArea2.setWildcard(textArea2Buffer);
         textArea2.setTypedText(touchgfx::TypedText(T_MAN3SCORE));
-        textArea2.invalidate(); // Vẽ lại nội dung
+        textArea2.invalidate();
         invalidate();
     }
     else {
-        // Nếu có thể tạo hình mới, vẽ nó
         drawTetromino(currentShape, currentX, currentY);
     }
 }
@@ -516,7 +613,6 @@ void Screen4View::rotateTetromino()
     uint8_t temp[4][4] = {0};
     uint8_t rotated[4][4] = {0};
     
-    // Copy currentTetromino vào temp
     memcpy(temp, currentTetromino, sizeof(temp));
 
     // Xác định điểm trung tâm để xoay dựa vào loại hình
@@ -585,7 +681,6 @@ void Screen4View::clearScreen()
         }
     }
     
-    // Xóa tất cả khối cố định trên board
     for(int y = 0; y < BOARD_HEIGHT; y++) {
         for(int x = 0; x < BOARD_WIDTH; x++) {
             if(board[y][x]) {
@@ -594,11 +689,55 @@ void Screen4View::clearScreen()
             }
         }
     }
-    
-    // Xóa khối tiếp theo
+
     for(int y = 0; y < 4; y++) {
         for(int x = 0; x < 4; x++) {
             remove(nextBlocks[y][x]);
         }
     }
+}
+
+// ========================= BAG RANDOMIZER IMPLEMENTATION =========================
+
+void Screen4View::initializeBag()
+{
+    // Khởi tạo túi với 7 hình tetromino (0-6)
+    for(int i = 0; i < BAG_SIZE; i++) {
+        bag[i] = i;
+    }
+    shuffleBag();
+    bagIndex = 0;
+}
+
+void Screen4View::shuffleBag()
+{
+    // Fisher-Yates shuffle algorithm
+    for(int i = BAG_SIZE - 1; i > 0; i--) {
+        int j = simpleRandom() % (i + 1);
+        
+        // Swap bag[i] và bag[j]
+        uint8_t temp = bag[i];
+        bag[i] = bag[j];
+        bag[j] = temp;
+    }
+}
+
+int Screen4View::getNextShape()
+{
+    // Nếu đã hết túi, khởi tạo túi mới
+    if(bagIndex >= BAG_SIZE) {
+        shuffleBag();
+        bagIndex = 0;
+    }
+    
+    return bag[bagIndex++];
+}
+
+uint32_t Screen4View::simpleRandom()
+{
+    // Linear Congruential Generator (LCG)
+    // Sử dụng công thức: next = (a * seed + c) % m
+    // a = 1664525, c = 1013904223, m = 2^32
+    randomSeed = randomSeed * 1664525 + 1013904223 + score - 2611;
+    return randomSeed;
 }

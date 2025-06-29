@@ -583,6 +583,33 @@
           },
           {
             "Type": "Image",
+            "Name": "image4",
+            "X": 168,
+            "Width": 72,
+            "Height": 59,
+            "RelativeFilename": "lv1.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 140,
+            "Y": 59,
+            "Width": 130,
+            "Height": 20,
+            "TextId": "target3",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_7D4F"
+            }
+          },
+          {
+            "Type": "Image",
             "Name": "image2",
             "Width": 240,
             "Height": 320,
@@ -904,6 +931,33 @@
           },
           {
             "Type": "Image",
+            "Name": "image4",
+            "X": 168,
+            "Width": 72,
+            "Height": 54,
+            "RelativeFilename": "lv2.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 140,
+            "Y": 54,
+            "Width": 130,
+            "Height": 20,
+            "TextId": "target4",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_4P4L"
+            }
+          },
+          {
+            "Type": "Image",
             "Name": "image2",
             "Width": 240,
             "Height": 320,
@@ -1098,12 +1152,61 @@
           {
             "InteractionName": "Interaction1",
             "Trigger": {
-              "Type": "TriggerNone"
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton2"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton3"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen4"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton4"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton5"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen4"
             }
           }
         ]

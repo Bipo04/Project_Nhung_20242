@@ -54,6 +54,8 @@
 "./Application/User/generated/image_gem_screen.o"
 "./Application/User/generated/image_green.o"
 "./Application/User/generated/image_green9px.o"
+"./Application/User/generated/image_lv1.o"
+"./Application/User/generated/image_lv2.o"
 "./Application/User/generated/image_next_level.o"
 "./Application/User/generated/image_orange.o"
 "./Application/User/generated/image_orange9px.o"

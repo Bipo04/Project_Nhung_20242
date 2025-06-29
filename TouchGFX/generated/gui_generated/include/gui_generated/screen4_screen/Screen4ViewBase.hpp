@@ -31,6 +31,8 @@ protected:
     touchgfx::Image image1;
     touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  flexButton1;
     touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::Image image4;
+    touchgfx::TextAreaWithOneWildcard textArea3;
     touchgfx::Image image2;
     touchgfx::Image image3;
     touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  flexButton2;
@@ -40,6 +42,16 @@ protected:
     touchgfx::TextAreaWithOneWildcard textArea2;
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<Screen4ViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
 
 };
 

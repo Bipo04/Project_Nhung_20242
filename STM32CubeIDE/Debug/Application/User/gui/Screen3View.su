@@ -13,7 +13,7 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:65:13:touchgfx::TypedText::~TypedText()	0	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:155:6:virtual void Screen3View::tearDownScreen()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:301:6:virtual void Screen3View::tearDownScreen()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	8	static
 ../../TouchGFX/gui/include/gui/screen3_screen/Screen3View.hpp:15:13:Screen3View::~Screen3View()	16	static
 ../../TouchGFX/gui/include/gui/screen3_screen/Screen3View.hpp:15:13:virtual Screen3View::~Screen3View()	8	static
@@ -21,15 +21,18 @@ C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:155:6
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	16	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	8	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:229:6:bool Screen3View::checkCollision(int, int, int)	24	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:336:6:void Screen3View::moveLinesDown(int)	48	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:150:6:virtual void Screen3View::setupScreen()	0	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:161:6:void Screen3View::drawTetromino(int, int, int)	64	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:511:6:void Screen3View::rotateTetromino()	72	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:185:6:void Screen3View::drawNextTetromino()	56	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:99:1:Screen3View::Screen3View()	88	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:580:6:void Screen3View::clearScreen()	40	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:449:6:void Screen3View::createNewTetromino()	32	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:251:6:void Screen3View::checkAndClearLines()	152	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:360:6:void Screen3View::freezeTetromino()	56	static
-C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:381:6:virtual void Screen3View::handleTickEvent()	32	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:375:6:bool Screen3View::checkCollision(int, int, int)	24	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:765:10:uint32_t Screen3View::simpleRandom()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:741:6:void Screen3View::shuffleBag()	24	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:731:6:void Screen3View::initializeBag()	8	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:754:5:int Screen3View::getNextShape()	16	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:296:6:virtual void Screen3View::setupScreen()	0	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:307:6:void Screen3View::drawTetromino(int, int, int)	64	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:633:6:void Screen3View::rotateTetromino()	72	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:331:6:void Screen3View::drawNextTetromino()	56	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:235:1:Screen3View::Screen3View()	88	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:702:6:void Screen3View::clearScreen()	40	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:571:6:void Screen3View::createNewTetromino()	32	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:397:6:void Screen3View::checkAndClearLines()	152	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:482:6:void Screen3View::freezeTetromino()	56	static
+C:/TouchGFXProjects/Tetris/TouchGFX/gui/src/screen3_screen/Screen3View.cpp:503:6:virtual void Screen3View::handleTickEvent()	32	static
